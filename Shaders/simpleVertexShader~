@@ -1,8 +1,0 @@
-#version 130
-//layout (location = 0) is not supported in 130, linked in program "Setup Vertex Attributes"
-in vec3 position;
-
-void main()
-{
-    gl_Position = vec4(position.x, position.y, position.z, 1.0);
-}
