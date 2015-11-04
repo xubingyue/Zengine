@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = Zengine.cpp 
+OBJS = Source/Zengine.cpp 
 
 #CC specifies which compiler we're usinng
 CC = g++
