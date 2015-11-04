@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = 01_hello_SDL.cpp 
+OBJS = Zengine.cpp 
 
 #CC specifies which compiler we're usinng
 CC = g++
@@ -15,7 +15,7 @@ LINKER_FLAGS = -lSDL2 -lGLU -lGL -lm -DGL_GLEXT_PROTOTYPES
 HEADER_FLAGS = -I Headers
 
 #OBJ_NAME specifies the name of the executable
-OBJ_NAME = 01_hello_SDL
+OBJ_NAME = Zengine
 
 #This is the target that compiles our executable
 all : $(OBJS)
