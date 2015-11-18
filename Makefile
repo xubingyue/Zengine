@@ -11,12 +11,9 @@ COMPILER_FLAGS = -w
 #LINKER_FLAGS specifies the libraries we're linking against
 LINKER_FLAGS = -lSDL2 -lGLU -lGL -lm -DGL_GLEXT_PROTOTYPES 
 
-#HEADER_FLAGS specifies the header directory we're using
-HEADER_FLAGS = -I Headers
-
 #OBJ_NAME specifies the name of the executable
 OBJ_NAME = Zengine
 
 #This is the target that compiles our executable
 all : $(OBJS)
-	$(CC) $(HEADER_FLAGS) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS)  -o $(OBJ_NAME)
+	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS)  -o $(OBJ_NAME)

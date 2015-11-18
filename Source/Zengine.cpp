@@ -7,7 +7,7 @@
 #include<string>
 #include<fstream>
 
-#include <Shader.h>
+#include "Shader.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
