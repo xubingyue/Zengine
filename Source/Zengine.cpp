@@ -119,7 +119,7 @@ int main( int argc, char* args[] )
 	      glClear( GL_COLOR_BUFFER_BIT );
 
 	      //Test out our new Shader.h
-	      Shader testShader("Shaders/simpleVertexShader.vs", "Shaders/simpleFragmentShader.fs");	     
+	      Shader testShader("Source/Shaders/simpleVertexShader.vs", "Source/Shaders/simpleFragmentShader.fs");	     
 
 	      //Triangle Data
 	      GLfloat triangleVertices[] = {
