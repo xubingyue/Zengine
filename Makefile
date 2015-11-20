@@ -15,5 +15,9 @@ LINKER_FLAGS = -lSDL2 -lGLU -lGL -lm -DGL_GLEXT_PROTOTYPES
 OBJ_NAME = Zengine
 
 #This is the target that compiles our executable
-all : $(OBJS)
+server : $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS)  -o $(OBJ_NAME)
+
+client : 
+
+all : server client
