@@ -230,7 +230,7 @@ int main( int argc, char* args[] )
 	//DeltaTime variables
 	GLfloat deltaTime = 0.0f;
 	GLfloat lastFrame = 0.0f;
-	GLfloat currentFrame = SDL_GetTicks();
+	GLfloat currentFrame = SDL_GetTicks(); //Start Clock
 	
 
         //Main Loop Flag
@@ -242,6 +242,11 @@ int main( int argc, char* args[] )
         //While Application is running
         while( !quit )
         {
+	  //Update Clock
+	  currentFrame = SDL_GetTicks();
+          deltaTime = currentFrame - lastFrame;
+          lastFrame = currentFrame;
+	  
 	  //Handle events on queue
 	  if( SDL_PollEvent( &e ) != 0)
 	  {
