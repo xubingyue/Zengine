@@ -227,7 +227,11 @@ int main( int argc, char* args[] )
 
 
 
-
+	//DeltaTime variables
+	GLfloat deltaTime = 0.0f;
+	GLfloat lastFrame = 0.0f;
+	GLfloat currentFrame = SDL_GetTicks();
+	
 
         //Main Loop Flag
         bool quit = false;
