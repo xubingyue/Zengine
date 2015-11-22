@@ -1,3 +1,8 @@
+/*
+  Plans for next time:
+  Zengine will start a ZengineServer, and then a ZengineClient.
+*/
+
  /*
    Include Files
 */
