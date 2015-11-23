@@ -1,3 +1,11 @@
+ /*
+   Include Files
+*/
+#include<stdio.h>
+#include<string>
+#include<fstream>
+
+
 /*
   Class Declaration
 */
@@ -42,7 +50,7 @@ void ZengineServer::OnEvent()
 
 void ZengineServer::Loop()
 {
-
+  Running = false;
 }
 
 void ZengineServer::Exit()
@@ -64,7 +72,8 @@ int ZengineServer::Run()
 
   while(Running)
     {
-      while(true) //Infinite atm, need to loop through players vector
+      //while(true) //Infinite atm, need to loop through players vector
+	for(int i = 0; i < 10; i++) //Temp loop
 	{
 	  OnEvent();
 	}
@@ -75,5 +84,14 @@ int ZengineServer::Run()
 
   Exit();
   
+  return 0;
+}
+
+int main ( int argc, char* argv [] )
+{
+  ZengineServer TestServer;
+
+  TestServer.Run();
+
   return 0;
 }

@@ -88,7 +88,7 @@ int main( int argc, char* args[] )
 	SDL_Window* window = NULL;
 	
 	//The surface contained by the window
-	SDL_Surface* screenSurface = NULL;
+	//SDL_Surface* screenSurface = NULL;
 
 	//OpenGL context SDL_GLContext gContext;
 	SDL_GLContext context;
@@ -137,6 +137,7 @@ int main( int argc, char* args[] )
             printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
             return 1;
           }
+
         //Initialize OpenGL
         if(!initGL())
           {

@@ -1,5 +1,7 @@
 #OBJS specifies which files to compile as part of the project
 OBJS = Source/Zengine.cpp 
+SERVEROBJS = Source/ZengineServer.cpp
+CLIENTOBJS = Source/ZengineClient.cpp
 
 #CC specifies which compiler we're usinng
 CC = g++
@@ -13,11 +15,17 @@ LINKER_FLAGS = -lSDL2 -lGLU -lGL -lm -DGL_GLEXT_PROTOTYPES
 
 #OBJ_NAME specifies the name of the executable
 OBJ_NAME = Zengine
+SERVEROBJ_NAME = ZengineServer
+CLIENTOBJ_NAME = ZengineClient
 
 #This is the target that compiles our executable
-server : $(OBJS)
+zengine : $(OBJS)
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS)  -o $(OBJ_NAME)
 
-client : 
+client : $(CLIENTOBJS)
+	   $(CC) $(CLIENTOBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS)  -o $(CLIENTOBJ_NAME)
 
-all : server client
+server : $(SERVEROBJS)
+	   $(CC) $(SERVEROBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS)  -o $(SERVEROBJ_NAME)
+
+all : server client zengine
