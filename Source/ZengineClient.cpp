@@ -7,7 +7,13 @@
 #include<SDL2/SDL_opengl.h>
 #include<GL/glu.h>
 #include<stdio.h>
-#include<string>
+#include<stdlib.h>
+#include<unistd.h>
+#include<string.h>
+#include<sys/types.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
+#include<netdb.h>
 #include<fstream>
 
 /*
@@ -48,6 +54,11 @@ class ZengineClient {
    
         SDL_Window* window;
         SDL_GLContext context;
+
+        int sockfd, portno;
+        struct sockaddr_in serv_addr;
+        struct hostent *server;
+        char buffer[256];
 
 };
 
@@ -139,6 +150,25 @@ bool ZengineClient::Initialize()
       return false;
     }
 
+  //Server connection stuff
+  portno = 5050;
+  sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  if(sockfd < 0)
+    perror("ERROR opening socket");
+  server = gethostbyname("localhost");
+  if(server == NULL)
+    {
+      fprintf(stderr, "ERROR, no such host\n");
+      exit(0);
+    }
+  bzero((char *) &serv_addr, sizeof(serv_addr));
+  serv_addr.sin_family = AF_INET;
+  bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+  serv_addr.sin_port = htons(portno);
+  if(connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
+    perror("ERROR connecting");
+
+
   return true;
 }
 
@@ -153,6 +183,17 @@ void ZengineClient::OnEvent(SDL_Event* Event)
 
 void ZengineClient::Loop()
 {
+  printf("Please enter the message: ");
+  bzero(buffer, 256);
+  fgets(buffer, 255, stdin);
+  if((write(sockfd, buffer, strlen(buffer))) < 0)
+    perror("ERROR writing to socket");
+  if(strcmp(buffer, "quit\n") == 0 )
+    Running = false;
+  bzero(buffer, 256);
+  if((read(sockfd, buffer, 255)) < 0 )
+    perror("ERROR reading from socket");
+  printf("%s\n", buffer);
 
 }
 
@@ -174,6 +215,9 @@ void ZengineClient::Exit()
 
   //Quit SDL subsystems
   SDL_Quit();
+
+  //Close socket
+  close(sockfd);
 }
 
 ZengineClient::ZengineClient()
