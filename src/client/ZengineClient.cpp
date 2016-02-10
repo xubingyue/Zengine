@@ -6,18 +6,23 @@
 #include<SDL2/SDL.h>
 #include<SDL2/SDL_opengl.h>
 #include<GL/glu.h>
+
+//Standard libraries
 #include<stdio.h>
 #include<stdlib.h>
-#include<unistd.h>
 #include<string.h>
+#include<fstream>
+
+//UDP headers
+#include<unistd.h>
 #include<sys/types.h>
 #include<sys/socket.h>
 #include<netinet/in.h>
 #include<netdb.h>
-#include<fstream>
+
 
 /*
-  Constants
+  Constants (Should be temporary)
 */
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -45,7 +50,6 @@ class ZengineClient {
         //Non-Server related things
         void Loop();
  
-        //Get messages from Server and Render
         void Render();
 
         void Exit();
@@ -55,8 +59,10 @@ class ZengineClient {
         SDL_Window* window;
         SDL_GLContext context;
 
+        //Server Stuff
         int sockfd, portno;
         struct sockaddr_in serv_addr;
+        socklen_t servlen;
         struct hostent *server;
         char buffer[256];
 
@@ -68,30 +74,30 @@ class ZengineClient {
 */
 bool ZengineClient::Initialize()
 {
-  //INITIALIZE SDL
+  //Start SDL
   if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
-      printf( "SDL COULD NOT INITIALIZE! SDL_ERROR: %S\N", SDL_GetError() );
+      printf( "SDL COULD NOT INITIALIZE! SDL_ERROR: %s\n", SDL_GetError() );
       return false;
     }
 	
 	    
-  //CREATE WINDOW
+  //Create Window
   this->window = SDL_CreateWindow(
-     			  "You should probably be studying", //Window Title
+     			    "You should probably be studying", //Window Title
        			  SDL_WINDOWPOS_UNDEFINED,           //Initial x position
        			  SDL_WINDOWPOS_UNDEFINED,           //Initial y position
-       			  SCREEN_WIDTH,                      //Width, in pixels
-       			  SCREEN_HEIGHT,                     //Height, in pixels
+       			  SCREEN_WIDTH,                      //Width, in pixels currently CONSTANT
+       			  SCREEN_HEIGHT,                     //Height, in pixels currently CONSTANT
        			  SDL_WINDOW_OPENGL                  //Flags
        			  | SDL_WINDOW_SHOWN
        			  );
 
   if( this->window == NULL )
     {
-      printf( "WINDOW COULD NOT BE CREATED! SDL_ERROR: %S\N", SDL_GetError() );
+      printf( "WINDOW COULD NOT BE CREATED! SDL_ERROR: %s\n", SDL_GetError() );
       return false;
-     }
+    }
 	 	    
   //Create Context
   this->context = SDL_GL_CreateContext(window);
@@ -152,7 +158,7 @@ bool ZengineClient::Initialize()
 
   //Server connection stuff
   portno = 5050;
-  sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  sockfd = socket(AF_INET, SOCK_DGRAM, 0);
   if(sockfd < 0)
     perror("ERROR opening socket");
   server = gethostbyname("localhost");
@@ -165,8 +171,7 @@ bool ZengineClient::Initialize()
   serv_addr.sin_family = AF_INET;
   bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
   serv_addr.sin_port = htons(portno);
-  if(connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
-    perror("ERROR connecting");
+  servlen = sizeof(serv_addr);
 
 
   return true;
@@ -186,13 +191,14 @@ void ZengineClient::Loop()
   printf("Please enter the message: ");
   bzero(buffer, 256);
   fgets(buffer, 255, stdin);
-  if((write(sockfd, buffer, strlen(buffer))) < 0)
-    perror("ERROR writing to socket");
+  if((sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr * )&serv_addr, servlen )) < 0)
+    perror("ERROR writing to socket, sendto()");
   if(strcmp(buffer, "quit\n") == 0 )
     Running = false;
   bzero(buffer, 256);
-  if((read(sockfd, buffer, 255)) < 0 )
-    perror("ERROR reading from socket");
+  if(Running)   //This makes sure that we don't wait for a message from a Server that was shut down by another client
+    if((recvfrom(sockfd, buffer, 255, 0, (struct sockaddr *)&serv_addr, &servlen )) < 0 )
+      perror("ERROR reading from socket, recvfrom()");
   printf("%s\n", buffer);
 
 }

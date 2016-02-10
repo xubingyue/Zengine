@@ -54,7 +54,7 @@ class ZengineServer {
 */
 bool ZengineServer::Initialize()
 {
-  sockfd = socket(AF_INET, SOCK_STREAM, 0);
+  sockfd = socket(AF_INET, SOCK_DGRAM, 0);
   if(sockfd < 0 )
     perror("ERROR opening socket");
   bzero((char *) &serv_addr, sizeof(serv_addr));
@@ -64,20 +64,18 @@ bool ZengineServer::Initialize()
   serv_addr.sin_port= htons(portno);
   if(bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
     perror("ERROR on binding");
-  listen(sockfd, 5);
-  clilen= sizeof(cli_addr);
-  newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-  if(newsockfd < 0)
-    perror("ERROR on accept");
-  
+  clilen= sizeof(struct sockaddr_in); 
+    
+
   return true;
 }
 
 void ZengineServer::OnEvent()
 {
+
   bzero(buffer, 256);
-  if((read(newsockfd, buffer, 255)) < 0 )
-    perror("ERROR reading from socket");
+  if((recvfrom(sockfd, buffer, 255, 0,(struct sockaddr *)&cli_addr, &clilen)) < 0 )
+    perror("ERROR reading from socket, recvfrom()");
   printf("Here is the message: %s\n", buffer);
   if(strcmp(buffer, "quit\n") == 0)
     Running = false;
@@ -86,8 +84,8 @@ void ZengineServer::OnEvent()
 
 void ZengineServer::Loop()
 {
-  if((write(newsockfd, "Message Received", 18)) < 0 )
-    perror("ERROR writing to socket");
+  if((sendto(sockfd, "Message Received", 18, 0, (struct sockaddr *)&cli_addr, clilen)) < 0 ) //18 is the number of bits in message
+    perror("ERROR writing to socket, sendto()");
 }
 
 void ZengineServer::Exit()
@@ -100,6 +98,8 @@ ZengineServer::ZengineServer()
 {
   Running = true;
 }
+
+
 
 int ZengineServer::Run()
 {
