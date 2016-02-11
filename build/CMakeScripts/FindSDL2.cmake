@@ -3,7 +3,7 @@
 # SDL2_FOUND, if false, do not try to link to SDL2
 # SDL2_INCLUDE_DIR, where to find SDL.h
 #
-# This module responds to the the flag:
+# This module responds to the the flag: 
 # SDL2_BUILDING_LIBRARY
 # If this is defined, then no SDL2main will be linked in because
 # only applications need main().
@@ -64,7 +64,7 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
-message("<FindSDL2.cmake>")
+message("Running FindSDL2.cmake ...")
 
 SET(SDL2_SEARCH_PATHS
 	~/Library/Frameworks
@@ -160,7 +160,7 @@ IF(SDL2_LIBRARY_TEMP)
 	SET(SDL2_LIBRARY_TEMP "${SDL2_LIBRARY_TEMP}" CACHE INTERNAL "")
 ENDIF(SDL2_LIBRARY_TEMP)
 
-message("</FindSDL2.cmake>")
+message("FindSDL2.cmake finished.")
 
 INCLUDE(FindPackageHandleStandardArgs)
 

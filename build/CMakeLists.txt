@@ -31,6 +31,15 @@ else (SDL2_FOUND)
     MESSAGE("SDL2 environment missing")
 endif (SDL2_FOUND)
 
+# Find include directories for SDL2_NET
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_BINARY_DIR}/CMakeScripts") #Redundant
+find_package(SDL2_NET REQUIRED)
+if (SDL2_NET_FOUND)
+    MESSAGE("SDL2_NET Correctly Found")
+else (SDL2_NET_FOUND)
+    MESSAGE("SDL2_NET environment missing")
+endif (SDL2_NET_FOUND)
+
 ###################################################################################
 
 # Get all Server include directories
@@ -63,9 +72,9 @@ add_executable(ZengineClient ${Client_SOURCES} ../src/client/ZengineClient.cpp )
 
 # Add include directories for Server and Client
 target_include_directories(ZengineServer PRIVATE ${Server_INCLUDE_DIRS})
-target_include_directories(ZengineClient PRIVATE ${Client_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} )
+target_include_directories(ZengineClient PRIVATE ${Client_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${SDL2_NET_INCLUDE_DIR} )
 
 # Link Libraries for Client
-target_link_libraries (ZengineClient ${SDL2_LIBRARY} ${OPENGL_LIBRARIES}  )
+target_link_libraries (ZengineClient ${SDL2_LIBRARY} ${SDL2_NET_LIBRARY} ${OPENGL_LIBRARIES}  )
 
 ###################################################################################

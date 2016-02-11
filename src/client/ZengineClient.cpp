@@ -1,17 +1,20 @@
  /*
    Include Files
-*/
+*/ 
 
 //Using SDL2 and OpenGL
-#include<SDL2/SDL.h>
-#include<SDL2/SDL_opengl.h>
-#include<GL/glu.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_net.h> 
+#include <GL/glu.h>
+
+  
 
 //Standard libraries
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<fstream>
+#include <stdio.h> 
+#include <stdlib.h>
+#include <string.h>
+#include <fstream>
 
 //UDP headers
 #include<unistd.h>
@@ -84,7 +87,7 @@ bool ZengineClient::Initialize()
 	    
   //Create Window
   this->window = SDL_CreateWindow(
-     			    "You should probably be studying", //Window Title
+     			    "Zengine Client", //Window Title
        			  SDL_WINDOWPOS_UNDEFINED,           //Initial x position
        			  SDL_WINDOWPOS_UNDEFINED,           //Initial y position
        			  SCREEN_WIDTH,                      //Width, in pixels currently CONSTANT
