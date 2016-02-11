@@ -2,7 +2,7 @@
    Include Files
 */ 
 
-//Using SDL2 and OpenGL
+//Using SDL2 and OpenGL 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_net.h> 
@@ -62,12 +62,23 @@ class ZengineClient {
         SDL_Window* window;
         SDL_GLContext context;
 
-        //Server Stuff
-        int sockfd, portno;
-        struct sockaddr_in serv_addr;
-        socklen_t servlen;
-        struct hostent *server;
-        char buffer[256];
+        // //Server Stuff
+        // int sockfd, portno;
+        // struct sockaddr_in serv_addr;
+        // socklen_t servlen;
+        // struct hostent *server;
+        // char buffer[256];
+
+        char message[256];
+        char *composition;
+        Sint32 cursor;
+        Sint32 selection_len;
+
+
+        //UDP Stuff
+        UDPsocket sd;
+        IPaddress srvadd;
+        UDPpacket *p;
 
 };
 
@@ -75,6 +86,11 @@ class ZengineClient {
 /*
   Function Implementation
 */
+
+
+
+
+
 bool ZengineClient::Initialize()
 {
   //Start SDL
@@ -159,23 +175,56 @@ bool ZengineClient::Initialize()
       return false;
     }
 
-  //Server connection stuff
-  portno = 5050;
-  sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-  if(sockfd < 0)
-    perror("ERROR opening socket");
-  server = gethostbyname("localhost");
-  if(server == NULL)
-    {
-      fprintf(stderr, "ERROR, no such host\n");
-      exit(0);
-    }
-  bzero((char *) &serv_addr, sizeof(serv_addr));
-  serv_addr.sin_family = AF_INET;
-  bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
-  serv_addr.sin_port = htons(portno);
-  servlen = sizeof(serv_addr);
+  // //Server connection stuff
+  // portno = 5050;
+  // sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+  // if(sockfd < 0)
+  //   perror("ERROR opening socket");
+  // server = gethostbyname("localhost");
+  // if(server == NULL)
+  //   {
+  //     fprintf(stderr, "ERROR, no such host\n");
+  //     exit(0);
+  //   }
+  // bzero((char *) &serv_addr, sizeof(serv_addr));
+  // serv_addr.sin_family = AF_INET;
+  // bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+  // serv_addr.sin_port = htons(portno);
+  // servlen = sizeof(serv_addr);
 
+  SDL_StartTextInput();
+  
+
+
+
+  /* UDP SERVER STUFF +_AS(DF_A(SD_F)) */
+  /* Initialize SDL_net */
+  if (SDLNet_Init() < 0)
+  {
+    fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
+    exit(EXIT_FAILURE);
+  }
+ 
+  /* Open a socket on random port */
+  if (!(sd = SDLNet_UDP_Open(0)))
+  {
+    fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
+    exit(EXIT_FAILURE);
+  }
+  int port = 3000;
+  /* Resolve server name  */
+  if (SDLNet_ResolveHost(&srvadd, "localhost", port) == -1)
+  {
+    fprintf(stderr, "SDLNet_ResolveHost(%s %d): %s\n", "localhost", port, SDLNet_GetError());
+    exit(EXIT_FAILURE);
+  }
+ 
+  /* Allocate memory for the packet */
+  if (!(p = SDLNet_AllocPacket(512)))
+  {
+    fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+    exit(EXIT_FAILURE);
+  }
 
   return true;
 }
@@ -187,22 +236,71 @@ void ZengineClient::OnEvent(SDL_Event* Event)
       {
         Running = false;
       }
+
+    if (Event->type == SDL_TEXTINPUT)
+    {
+      strcat(message, Event->text.text);
+    }
+    if(Event->type == SDL_TEXTEDITING)
+    {
+       /*
+        Update the composition text.
+        Update the cursor position.
+        Update the selection length (if any).
+        */
+        composition = Event->edit.text;
+        cursor = Event->edit.start;
+        selection_len = Event->edit.length;
+    }
+    if(Event->type == SDL_KEYDOWN)
+    {
+
+       if( Event->key.keysym.sym == SDLK_RETURN )
+         {
+           strcpy((char *)p->data, message);
+           /* Quit if packet contains "quit" */
+           if (!strcmp((char *)p->data, "quit"))
+              Running = false;
+
+            p->address.host = srvadd.host;  /* Set the destination host */
+            p->address.port = srvadd.port;  /* And destination port */
+ 
+            p->len = strlen((char *)p->data) + 1;
+            SDLNet_UDP_Send(sd, -1, p); /* This sets the p->channel */
+            memset(message,0,sizeof(message));
+          }
+      
+    }
 }
 
 void ZengineClient::Loop()
 {
-  printf("Please enter the message: ");
-  bzero(buffer, 256);
-  fgets(buffer, 255, stdin);
-  if((sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr * )&serv_addr, servlen )) < 0)
-    perror("ERROR writing to socket, sendto()");
-  if(strcmp(buffer, "quit\n") == 0 )
-    Running = false;
-  bzero(buffer, 256);
-  if(Running)   //This makes sure that we don't wait for a message from a Server that was shut down by another client
-    if((recvfrom(sockfd, buffer, 255, 0, (struct sockaddr *)&serv_addr, &servlen )) < 0 )
-      perror("ERROR reading from socket, recvfrom()");
-  printf("%s\n", buffer);
+  // printf("Please enter the message: ");
+  // bzero(buffer, 256);
+  // fgets(buffer, 255, stdin);
+  // if((sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr * )&serv_addr, servlen )) < 0)
+  //   perror("ERROR writing to socket, sendto()");
+  // if(strcmp(buffer, "quit\n") == 0 )
+  //   Running = false;
+  // bzero(buffer, 256);
+  // if(Running)   //This makes sure that we don't wait for a message from a Server that was shut down by another client
+  //   if((recvfrom(sockfd, buffer, 255, 0, (struct sockaddr *)&serv_addr, &servlen )) < 0 )
+  //     perror("ERROR reading from socket, recvfrom()");
+  // printf("%s\n", buffer);
+
+    //printf("Fill the buffer\n>");
+    //scanf("%s", (char *)p->data);
+ 
+    // p->address.host = srvadd.host;  /* Set the destination host */
+    // p->address.port = srvadd.port;  /* And destination port */
+ 
+    // p->len = strlen((char *)p->data) + 1;
+    // SDLNet_UDP_Send(sd, -1, p); /* This sets the p->channel */
+ 
+    // /* Quit if packet contains "quit" */
+    // if (!strcmp((char *)p->data, "quit"))
+    //   Running = false;
+
 
 }
 
@@ -225,14 +323,30 @@ void ZengineClient::Exit()
   //Quit SDL subsystems
   SDL_Quit();
 
-  //Close socket
-  close(sockfd);
+  // //Close socket
+  // close(sockfd);
+
+
+
+  SDLNet_FreePacket(p);
+  SDLNet_Quit();
+  SDL_StopTextInput();
 }
 
 ZengineClient::ZengineClient()
 {
   Running = true;
 }
+
+
+
+
+
+
+
+
+
+/* ******************************************************************* */
 
 int ZengineClient::Run()
 {

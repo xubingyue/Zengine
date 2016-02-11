@@ -74,7 +74,8 @@ add_executable(ZengineClient ${Client_SOURCES} ../src/client/ZengineClient.cpp )
 target_include_directories(ZengineServer PRIVATE ${Server_INCLUDE_DIRS})
 target_include_directories(ZengineClient PRIVATE ${Client_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${SDL2_NET_INCLUDE_DIR} )
 
-# Link Libraries for Client
+# Link Libraries for Server and Client
 target_link_libraries (ZengineClient ${SDL2_LIBRARY} ${SDL2_NET_LIBRARY} ${OPENGL_LIBRARIES}  )
+target_link_libraries (ZengineServer ${SDL2_NET_LIBRARY})
 
 ###################################################################################

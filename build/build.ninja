@@ -57,8 +57,8 @@ build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineS
 #############################################
 # Link the executable /home/czehr/Devlib/Zengine/bin/ZengineServer
 
-build /home/czehr/Devlib/Zengine/bin/ZengineServer: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o
-  LINK_LIBRARIES = -rdynamic
+build /home/czehr/Devlib/Zengine/bin/ZengineServer: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2_net.so
+  LINK_LIBRARIES = -rdynamic -lSDL2_net
   POST_BUILD = :
   PRE_LINK = :
   TARGET_PDB = ZengineServer.dbg
