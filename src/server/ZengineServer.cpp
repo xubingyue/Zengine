@@ -4,12 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
+
+
+#include <ZengineServer.h>   
+#include <UDP_Connection.h>
 
 #include <SDL2/SDL_net.h>
+
 
 
 /*
@@ -41,18 +42,8 @@ class ZengineServer {
 
     private:
         
-        int sockfd, newsockfd, portno;
-        socklen_t clilen;
-        char buffer[256];
-        struct sockaddr_in serv_addr, cli_addr;
-
-
-
-
         UDPsocket sd;       /* Socket descriptor */
         UDPpacket *p;       /* Pointer to packet memory */
-        
-
 };
 
 
@@ -66,20 +57,6 @@ class ZengineServer {
 
 bool ZengineServer::Initialize()
 {
-  // sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-  // if(sockfd < 0 )
-  //   perror("ERROR opening socket");
-  // bzero((char *) &serv_addr, sizeof(serv_addr));
-  // portno = 5050;
-  // serv_addr.sin_family = AF_INET;
-  // serv_addr.sin_addr.s_addr = INADDR_ANY;
-  // serv_addr.sin_port= htons(portno);
-  // if(bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
-  //   perror("ERROR on binding");
-  // clilen= sizeof(struct sockaddr_in); 
-    
-
-
   //UDP Connection stuff
   /* Initialize SDL_net */
   if (SDLNet_Init() < 0)
@@ -109,19 +86,11 @@ bool ZengineServer::Initialize()
 void ZengineServer::OnEvent()
 {
 
-  // bzero(buffer, 256);
-  // if((recvfrom(sockfd, buffer, 255, 0,(struct sockaddr *)&cli_addr, &clilen)) < 0 )
-  //   perror("ERROR reading from socket, recvfrom()");
-  // printf("Here is the message: %s\n", buffer);
-  // if(strcmp(buffer, "quit\n") == 0)
-  //   Running = false;
   
 }
 
 void ZengineServer::Loop()
 {
-  // if((sendto(sockfd, "Message Received", 18, 0, (struct sockaddr *)&cli_addr, clilen)) < 0 ) //18 is the number of bits in message
-  //   perror("ERROR writing to socket, sendto()");
 
 
 // UDP stuff
@@ -135,6 +104,7 @@ void ZengineServer::Loop()
       printf("\tMaxlen:  %d\n", p->maxlen);
       printf("\tStatus:  %d\n", p->status);
       printf("\tAddress: %x %x\n", p->address.host, p->address.port);
+      superPrint();
  
       /* Quit if packet contains "quit" */
       if (strcmp((char *)p->data, "quit") == 0)
@@ -146,8 +116,6 @@ void ZengineServer::Loop()
 
 void ZengineServer::Exit()
 {
-  close(newsockfd);
-  close(sockfd);
 
 
    /* Clean and exit */

@@ -5,8 +5,12 @@
 cmake_minimum_required (VERSION 2.8)
 project (Zengine)
 
-#Set output of final executables
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../bin)
+# Set output of final executables
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
+
+# List of include directories
+set(Server_INCLUDE_DIRS "")
+set(Client_INCLUDE_DIRS "")
 
 ###################################################################################
 
@@ -22,8 +26,12 @@ else (OPENGL_FOUND)
     MESSAGE("OpenGL environment missing")
 endif (OPENGL_FOUND)
 
+###################################################################################
+
+# Use custom scripts
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "CMakeScripts")
+
 # Find include directories for SDL2
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_BINARY_DIR}/CMakeScripts")
 find_package(SDL2 REQUIRED)
 if (SDL2_FOUND)
     MESSAGE("SDL2 Correctly Found")
@@ -32,7 +40,6 @@ else (SDL2_FOUND)
 endif (SDL2_FOUND)
 
 # Find include directories for SDL2_NET
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_BINARY_DIR}/CMakeScripts") #Redundant
 find_package(SDL2_NET REQUIRED)
 if (SDL2_NET_FOUND)
     MESSAGE("SDL2_NET Correctly Found")
@@ -43,8 +50,7 @@ endif (SDL2_NET_FOUND)
 ###################################################################################
 
 # Get all Server include directories
-file(GLOB_RECURSE Server_HEADERS RELATIVE "../src/server" *h )
-set(Server_INCLUDE_DIRS "")
+file(GLOB_RECURSE Server_HEADERS ../src/server/* *.h )
 foreach(headerFile ${Server_HEADERS})
     get_filename_component(headerDirectory ${headerFile} PATH)
     list (APPEND Server_INCLUDE_DIRS ${headerDirectory})
@@ -52,8 +58,7 @@ endforeach()
 list(REMOVE_DUPLICATES Server_INCLUDE_DIRS)
 
 # Get all Client include directories
-file(GLOB_RECURSE Client_HEADERS RELATIVE "../src/client" *h )
-set(Client_INCLUDE_DIRS "")
+file(GLOB_RECURSE Client_HEADERS ../src/client/* *.h )
 foreach(headerFile ${Client_HEADERS})
     get_filename_component(headerDirectory ${headerFile} PATH)
     list (APPEND Client_INCLUDE_DIRS ${headerDirectory})
@@ -61,8 +66,8 @@ endforeach()
 list(REMOVE_DUPLICATES Client_INCLUDE_DIRS)
 
 # Get all sources for Server and Client
-file(GLOB_RECURSE Server_SOURCES RELATIVE "../src/server" *cpp )
-file(GLOB_RECURSE Client_SOURCES RELATIVE "../src/client" *cpp )
+file(GLOB_RECURSE Server_SOURCES RELATIVE ../src/server/* *.cpp)
+file(GLOB_RECURSE Client_SOURCES RELATIVE ../src/client/* *.cpp)
 
 ###################################################################################
 
@@ -71,7 +76,7 @@ add_executable(ZengineServer ${Server_SOURCES} ../src/server/ZengineServer.cpp )
 add_executable(ZengineClient ${Client_SOURCES} ../src/client/ZengineClient.cpp )
 
 # Add include directories for Server and Client
-target_include_directories(ZengineServer PRIVATE ${Server_INCLUDE_DIRS})
+target_include_directories(ZengineServer PRIVATE ${Server_INCLUDE_DIRS} ${SDL2_NET_INCLUDE_DIR} )
 target_include_directories(ZengineClient PRIVATE ${Client_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${SDL2_NET_INCLUDE_DIR} )
 
 # Link Libraries for Server and Client
