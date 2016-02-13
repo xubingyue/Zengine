@@ -7,3 +7,5 @@ Just finished setting up CMake and Ninja for the build system, "cmake -GNinja" >
 re-implement OpenGL shaders.
 
 After getting caught up, I'll be implementing Lua scripting.
+
+Also really need to clean up the code a bit, will probably get to that before shaders and scripting
