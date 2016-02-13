@@ -6,8 +6,8 @@
 #include <string.h>
 
 
-#include <ZengineServer.h>   
-#include <UDP_Connection.h>
+#include <ZengineServer.h>  
+#include <UDP_Network.h> 
 
 #include <SDL2/SDL_net.h>
 
@@ -41,6 +41,9 @@ class ZengineServer {
         void Exit();
 
     private:
+
+        char * message;
+        UDP_Connection clientConnection;
         
         UDPsocket sd;       /* Socket descriptor */
         UDPpacket *p;       /* Pointer to packet memory */
@@ -58,26 +61,28 @@ class ZengineServer {
 bool ZengineServer::Initialize()
 {
   //UDP Connection stuff
-  /* Initialize SDL_net */
-  if (SDLNet_Init() < 0)
-  {
-    fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
-    exit(EXIT_FAILURE);
-  }
+  // /* Initialize SDL_net */
+  // if (SDLNet_Init() < 0)
+  // {
+  //   fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
+  //   exit(EXIT_FAILURE);
+  // }
  
-  /* Open a socket */
-  if (!(sd = SDLNet_UDP_Open(3000)))
-  {
-    fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
-    exit(EXIT_FAILURE);
-  }
+  // /* Open a socket */
+  // if (!(sd = SDLNet_UDP_Open(3000)))
+  // {
+  //   fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
+  //   exit(EXIT_FAILURE);
+  // }
  
-  /* Make space for the packet */
-  if (!(p = SDLNet_AllocPacket(512)))
-  {
-    fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
-    exit(EXIT_FAILURE);
-  }
+  // /* Make space for the packet */
+  // if (!(p = SDLNet_AllocPacket(512)))
+  // {
+  //   fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
+  //   exit(EXIT_FAILURE);
+  // }
+
+  clientConnection.Initialize();
 
 
   return true;
@@ -94,33 +99,35 @@ void ZengineServer::Loop()
 
 
 // UDP stuff
-  /* Wait a packet. UDP_Recv returns != 0 if a packet is coming */
-    if (SDLNet_UDP_Recv(sd, p))
-    {
-      printf("UDP Packet incoming\n");
-      printf("\tChan:    %d\n", p->channel);
-      printf("\tData:    %s\n", (char *)p->data);
-      printf("\tLen:     %d\n", p->len);
-      printf("\tMaxlen:  %d\n", p->maxlen);
-      printf("\tStatus:  %d\n", p->status);
-      printf("\tAddress: %x %x\n", p->address.host, p->address.port);
-      superPrint();
+  // /* Wait a packet. UDP_Recv returns != 0 if a packet is coming */
+  //   if (SDLNet_UDP_Recv(sd, p))
+  //   {
+  //     printf("UDP Packet incoming\n");
+  //     printf("\tChan:    %d\n", p->channel);
+  //     printf("\tData:    %s\n", (char *)p->data);
+  //     printf("\tLen:     %d\n", p->len);
+  //     printf("\tMaxlen:  %d\n", p->maxlen);
+  //     printf("\tStatus:  %d\n", p->status);
+  //     printf("\tAddress: %x %x\n", p->address.host, p->address.port);
+  //     superPrint();
+  //   }
+  message = clientConnection.getMessages();
  
       /* Quit if packet contains "quit" */
-      if (strcmp((char *)p->data, "quit") == 0)
+      if (strcmp(message, "quit") == 0)
         Running = false;
-    }
+    
 
 
 }
 
 void ZengineServer::Exit()
 {
+  clientConnection.Close();
 
-
-   /* Clean and exit */
-  SDLNet_FreePacket(p);
-  SDLNet_Quit();
+  //  /* Clean and exit */
+  // SDLNet_FreePacket(p);
+  // SDLNet_Quit();
 }
 
 ZengineServer::ZengineServer()
