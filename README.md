@@ -1,11 +1,18 @@
 Zengine
 =======
 
-Just finished setting up CMake and Ninja for the build system, "cmake -GNinja" > "ninja" will generate build files, build the project, and place ZengineServer and ZengineClient executables in /bin.
+Eventually this will be a working engine. For now, it's more of an educational project for me, but I'm enjoying it a lot.
 
-~~Next up: UDP event based messaging~~ DONE but still need to clean up, 
-re-implement OpenGL shaders.
 
-After getting caught up, I'll be implementing Lua scripting.
+TODO:
 
-Also really need to clean up the code a bit, will probably get to that before shaders and scripting
+- Refactor and clean up Client code.
+- re-implement OpenGL shaders in client.
+- add game object and gamestate
+- implement server broadcast gamestate
+
+
+Next goals:
+- Client Log-in
+- Client input modifies gamestate
+- Bounding box collision

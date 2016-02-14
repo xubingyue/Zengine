@@ -48,12 +48,13 @@ endif (SDL2_NET_FOUND)
 # List header and source files for Server and Client
 set(Server_HEADERS
     ../src/server/ZengineServer.h
-    ../src/server/network/UDPNetwork.h
+    ../src/server/network/Network.h
     )
 
 set (Server_SOURCES
     ../src/server/ZengineServer.cpp
-    ../src/server/network/UDPNetwork.cpp
+    ../src/server/network/Network.cpp
+    ../src/server/Main.cpp
     )
 
 set(Client_HEADERS 
@@ -72,7 +73,7 @@ set(Client_SOURCES
 add_executable(ZengineServer 
     ${Server_SOURCES} 
     ${Server_HEADERS} 
-    ../src/server/ZengineServer.cpp 
+    ../src/server/Main.cpp 
     )
 add_executable(ZengineClient 
     ${Client_SOURCES} 

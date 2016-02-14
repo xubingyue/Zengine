@@ -1,7 +1,7 @@
-#include "UDPNetwork.h"
+#include "Network.h"
 
 
-void UDP_Connection::Initialize()
+void UDP_Network::Initialize()
 {
 	/* Initialize SDL_net */
 	if (SDLNet_Init() < 0)
@@ -26,7 +26,7 @@ void UDP_Connection::Initialize()
 
 }
 
-char* UDP_Connection::getMessage()
+char* UDP_Network::getMessage()
 {
 	if (SDLNet_UDP_Recv(this->sd, this->p))
 	{
@@ -37,13 +37,17 @@ char* UDP_Connection::getMessage()
 		printf("\tMaxlen:  %d\n", this->p->maxlen);
 		printf("\tStatus:  %d\n", this->p->status);
 		printf("\tAddress: %x %x\n", this->p->address.host, this->p->address.port);
-		//superPrint();
 	}
 
 	return (char *)this->p->data;
 }
 
-void UDP_Connection::Close()
+void UDP_Network::broadcastGameState(int* gamestate)
+{
+	/* Send gamestate to all current clients */
+}
+
+void UDP_Network::Close()
 {
 	/* Clean and exit */
 	SDLNet_FreePacket(p);

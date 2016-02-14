@@ -50,8 +50,12 @@ build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineS
   DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o.d
   FLAGS = -I/usr/include/SDL2 -I../src/server -I../src/network
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
-build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/UDPNetwork.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/network/UDPNetwork.cpp
-  DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/UDPNetwork.cpp.o.d
+build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/network/Network.cpp
+  DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o.d
+  FLAGS = -I/usr/include/SDL2 -I../src/server -I../src/network
+  OBJECT_DIR = CMakeFiles/ZengineServer.dir
+build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/Main.cpp
+  DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o.d
   FLAGS = -I/usr/include/SDL2 -I../src/server -I../src/network
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
 
@@ -62,7 +66,7 @@ build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/
 #############################################
 # Link the executable /home/czehr/Devlib/Zengine/bin/ZengineServer
 
-build /home/czehr/Devlib/Zengine/bin/ZengineServer: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/UDPNetwork.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2_net.so
+build /home/czehr/Devlib/Zengine/bin/ZengineServer: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2_net.so
   LINK_LIBRARIES = -rdynamic -lSDL2_net
   POST_BUILD = :
   PRE_LINK = :
