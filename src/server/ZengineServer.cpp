@@ -7,9 +7,9 @@
 
 
 #include <ZengineServer.h>  
-#include <UDP_Network.h> 
+#include <network/UDPNetwork.h> 
 
-#include <SDL2/SDL_net.h>
+//#include <SDL2/SDL_net.h>
 
 
 
@@ -45,8 +45,6 @@ class ZengineServer {
         char * message;
         UDP_Connection clientConnection;
         
-        UDPsocket sd;       /* Socket descriptor */
-        UDPpacket *p;       /* Pointer to packet memory */
 };
 
 
@@ -57,35 +55,12 @@ class ZengineServer {
 
 
 
-
 bool ZengineServer::Initialize()
 {
-  //UDP Connection stuff
-  // /* Initialize SDL_net */
-  // if (SDLNet_Init() < 0)
-  // {
-  //   fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
-  //   exit(EXIT_FAILURE);
-  // }
- 
-  // /* Open a socket */
-  // if (!(sd = SDLNet_UDP_Open(3000)))
-  // {
-  //   fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
-  //   exit(EXIT_FAILURE);
-  // }
- 
-  // /* Make space for the packet */
-  // if (!(p = SDLNet_AllocPacket(512)))
-  // {
-  //   fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
-  //   exit(EXIT_FAILURE);
-  // }
+  
+    clientConnection.Initialize();
 
-  clientConnection.Initialize();
-
-
-  return true;
+    return true;
 }
 
 void ZengineServer::OnEvent()
@@ -97,24 +72,11 @@ void ZengineServer::OnEvent()
 void ZengineServer::Loop()
 {
 
+    message = clientConnection.getMessage();
 
-// UDP stuff
-  // /* Wait a packet. UDP_Recv returns != 0 if a packet is coming */
-  //   if (SDLNet_UDP_Recv(sd, p))
-  //   {
-  //     printf("UDP Packet incoming\n");
-  //     printf("\tChan:    %d\n", p->channel);
-  //     printf("\tData:    %s\n", (char *)p->data);
-  //     printf("\tLen:     %d\n", p->len);
-  //     printf("\tMaxlen:  %d\n", p->maxlen);
-  //     printf("\tStatus:  %d\n", p->status);
-  //     printf("\tAddress: %x %x\n", p->address.host, p->address.port);
-  //     superPrint();
-  //   }
-  message = clientConnection.getMessages();
- 
-      /* Quit if packet contains "quit" */
-      if (strcmp(message, "quit") == 0)
+
+    /* Quit if packet contains "quit" */
+    if (strcmp(message, "quit") == 0)
         Running = false;
     
 
@@ -123,48 +85,47 @@ void ZengineServer::Loop()
 
 void ZengineServer::Exit()
 {
-  clientConnection.Close();
 
-  //  /* Clean and exit */
-  // SDLNet_FreePacket(p);
-  // SDLNet_Quit();
+    clientConnection.Close();
+
 }
 
 ZengineServer::ZengineServer()
 {
-  Running = true;
+
+    Running = true;
+
 }
 
 
 
 int ZengineServer::Run()
 {
-  if(Initialize() == false)
-    {
+    if(Initialize() == false)
       return -1;
-    }
+    
 
-  while(Running)
+    while(Running)
     {
       //while(true) //Infinite atm, need to loop through players vector
       //{
-	  OnEvent();
+	   OnEvent();
       //}
 
-      Loop();
+        Loop();
 
     }
 
-  Exit();
+    Exit();
   
   return 0;
 }
 
 int main ( int argc, char* argv [] )
 {
-  ZengineServer TestServer;
+    ZengineServer TestServer;
 
-  TestServer.Run();
+    TestServer.Run();
 
   return 0;
 }

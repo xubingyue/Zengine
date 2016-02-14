@@ -8,10 +8,6 @@ project (Zengine)
 # Set output of final executables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
-# List of include directories
-set(Server_INCLUDE_DIRS "")
-set(Client_INCLUDE_DIRS "")
-
 ###################################################################################
 
 #Find include directories for OpenGL
@@ -49,38 +45,62 @@ endif (SDL2_NET_FOUND)
 
 ###################################################################################
 
-# Get all Server include directories
-file(GLOB_RECURSE Server_HEADERS ../src/server/* *.h )
-foreach(headerFile ${Server_HEADERS})
-    get_filename_component(headerDirectory ${headerFile} PATH)
-    list (APPEND Server_INCLUDE_DIRS ${headerDirectory})
-endforeach()
-list(REMOVE_DUPLICATES Server_INCLUDE_DIRS)
+# List header and source files for Server and Client
+set(Server_HEADERS
+    ../src/server/ZengineServer.h
+    ../src/server/network/UDPNetwork.h
+    )
 
-# Get all Client include directories
-file(GLOB_RECURSE Client_HEADERS ../src/client/* *.h )
-foreach(headerFile ${Client_HEADERS})
-    get_filename_component(headerDirectory ${headerFile} PATH)
-    list (APPEND Client_INCLUDE_DIRS ${headerDirectory})
-endforeach()
-list(REMOVE_DUPLICATES Client_INCLUDE_DIRS)
+set (Server_SOURCES
+    ../src/server/ZengineServer.cpp
+    ../src/server/network/UDPNetwork.cpp
+    )
 
-# Get all sources for Server and Client
-file(GLOB_RECURSE Server_SOURCES RELATIVE ../src/server/* *.cpp)
-file(GLOB_RECURSE Client_SOURCES RELATIVE ../src/client/* *.cpp)
+set(Client_HEADERS 
+    ../src/client/ZengineClient.h
+    )
+
+set(Client_SOURCES
+    ../src/client/ZengineClient.h
+    )
+
+
 
 ###################################################################################
 
 # Add executables for Server and Client
-add_executable(ZengineServer ${Server_SOURCES} ../src/server/ZengineServer.cpp )
-add_executable(ZengineClient ${Client_SOURCES} ../src/client/ZengineClient.cpp )
+add_executable(ZengineServer 
+    ${Server_SOURCES} 
+    ${Server_HEADERS} 
+    ../src/server/ZengineServer.cpp 
+    )
+add_executable(ZengineClient 
+    ${Client_SOURCES} 
+    ../src/client/ZengineClient.cpp 
+    )
+
 
 # Add include directories for Server and Client
-target_include_directories(ZengineServer PRIVATE ${Server_INCLUDE_DIRS} ${SDL2_NET_INCLUDE_DIR} )
-target_include_directories(ZengineClient PRIVATE ${Client_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} ${SDL2_INCLUDE_DIR} ${SDL2_NET_INCLUDE_DIR} )
+target_include_directories(ZengineServer PRIVATE 
+    ${SDL2_NET_INCLUDE_DIR}
+    ../src/server
+    ../src/network
+     )
+target_include_directories(ZengineClient PRIVATE 
+    ${OPENGL_INCLUDE_DIR} 
+    ${SDL2_INCLUDE_DIR} 
+    ${SDL2_NET_INCLUDE_DIR} 
+    ../src/client
+    )
 
 # Link Libraries for Server and Client
-target_link_libraries (ZengineClient ${SDL2_LIBRARY} ${SDL2_NET_LIBRARY} ${OPENGL_LIBRARIES}  )
-target_link_libraries (ZengineServer ${SDL2_NET_LIBRARY})
+target_link_libraries (ZengineClient 
+    ${SDL2_LIBRARY} 
+    ${SDL2_NET_LIBRARY} 
+    ${OPENGL_LIBRARIES}  
+    )
+target_link_libraries (ZengineServer 
+    ${SDL2_NET_LIBRARY}
+    )
 
 ###################################################################################
