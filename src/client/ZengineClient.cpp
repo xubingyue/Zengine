@@ -1,73 +1,14 @@
  /*
    Include Files
 */ 
-
-//Using SDL2 and OpenGL 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_net.h> 
-#include <GL/glu.h>
-
-  
-
-//Standard libraries
-#include <stdio.h> 
-#include <stdlib.h>
-#include <string.h>
-#include <fstream>
-
-
+#include <ZengineClient.h>
 
 /*
-  Constants (Should be temporary)
+  Constants (temporary)
 */
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
-
-/*
-  Class Declaration
-*/
-
-class ZengineClient {
-    private:
-        bool    Running;
- 
-    public:
-        ZengineClient();
- 
-        int Run();
- 
-    public:
- 
-        bool Initialize();
- 
-        void OnEvent(SDL_Event* Event); 
- 
-        //Non-Server related things
-        void Loop();
- 
-        void Render();
-
-        void Exit();
-
-    private:
-   
-        SDL_Window* window;
-        SDL_GLContext context;
-
-        char message[256];
-        char *composition;
-        Sint32 cursor;
-        Sint32 selection_len;
-
-
-        //UDP Stuff
-        UDPsocket sd;
-        IPaddress srvadd;
-        UDPpacket *p;
-
-};
 
 
 /*
@@ -161,36 +102,7 @@ bool ZengineClient::Initialize()
   SDL_StartTextInput();
   
 
-
-
-  /* UDP SERVER STUFF +_AS(DF_A(SD_F)) */
-  /* Initialize SDL_net */
-  if (SDLNet_Init() < 0)
-  {
-    fprintf(stderr, "SDLNet_Init: %s\n", SDLNet_GetError());
-    exit(EXIT_FAILURE);
-  }
- 
-  /* Open a socket on random port */
-  if (!(sd = SDLNet_UDP_Open(0)))
-  {
-    fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
-    exit(EXIT_FAILURE);
-  }
-  int port = 3000;
-  /* Resolve server name  */
-  if (SDLNet_ResolveHost(&srvadd, "localhost", port) == -1)
-  {
-    fprintf(stderr, "SDLNet_ResolveHost(%s %d): %s\n", "localhost", port, SDLNet_GetError());
-    exit(EXIT_FAILURE);
-  }
- 
-  /* Allocate memory for the packet */
-  if (!(p = SDLNet_AllocPacket(512)))
-  {
-    fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
-    exit(EXIT_FAILURE);
-  }
+  serverConnection.Initialize();
 
   return true;
 }
@@ -223,16 +135,14 @@ void ZengineClient::OnEvent(SDL_Event* Event)
 
        if( Event->key.keysym.sym == SDLK_RETURN )
          {
-           strcpy((char *)p->data, message);
+           //strcpy((char *)p->data, message);
            /* Quit if packet contains "quit" */
-           if (!strcmp((char *)p->data, "quit"))
+           if (!strcmp(message, "quit"))
               Running = false;
 
-            p->address.host = srvadd.host;  /* Set the destination host */
-            p->address.port = srvadd.port;  /* And destination port */
- 
-            p->len = strlen((char *)p->data) + 1;
-            SDLNet_UDP_Send(sd, -1, p); /* This sets the p->channel */
+
+            serverConnection.sendMessage(message);
+
             memset(message,0,sizeof(message));
           }
       
@@ -242,7 +152,7 @@ void ZengineClient::OnEvent(SDL_Event* Event)
 void ZengineClient::Loop()
 {
   
-
+    serverConnection.getGameState();
 
 }
 
@@ -267,10 +177,8 @@ void ZengineClient::Exit()
 
  
 
+  serverConnection.Close();
 
-
-  SDLNet_FreePacket(p);
-  SDLNet_Quit();
   SDL_StopTextInput();
 }
 
@@ -316,12 +224,4 @@ int ZengineClient::Run()
   return 0;
 }
 
-int main (int argc, char* args[])
-{
-  ZengineClient TestClient;
-
-  TestClient.Run();
-
-  return 0;
-}
 

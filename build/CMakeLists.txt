@@ -59,10 +59,13 @@ set (Server_SOURCES
 
 set(Client_HEADERS 
     ../src/client/ZengineClient.h
+    ../src/client/network/Network.h
     )
 
 set(Client_SOURCES
-    ../src/client/ZengineClient.h
+    ../src/client/ZengineClient.cpp
+    ../src/client/network/Network.cpp
+    ../src/client/Main.cpp
     )
 
 
@@ -76,8 +79,9 @@ add_executable(ZengineServer
     ../src/server/Main.cpp 
     )
 add_executable(ZengineClient 
-    ${Client_SOURCES} 
-    ../src/client/ZengineClient.cpp 
+    ${Client_SOURCES}
+    ${Client_HEADERS} 
+    ../src/client/Main.cpp 
     )
 
 
@@ -85,13 +89,14 @@ add_executable(ZengineClient
 target_include_directories(ZengineServer PRIVATE 
     ${SDL2_NET_INCLUDE_DIR}
     ../src/server
-    ../src/network
+    ../src/server/network
      )
 target_include_directories(ZengineClient PRIVATE 
     ${OPENGL_INCLUDE_DIR} 
     ${SDL2_INCLUDE_DIR} 
     ${SDL2_NET_INCLUDE_DIR} 
     ../src/client
+    ../src/client/network
     )
 
 # Link Libraries for Server and Client
