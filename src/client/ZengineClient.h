@@ -52,9 +52,4 @@ class ZengineClient {
 
         UDP_ServerConnection serverConnection;
 
-        //UDP Stuff
-        //UDPsocket sd;
-        //IPaddress srvadd;
-        //UDPpacket *p;
-
 };

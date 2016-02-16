@@ -4,14 +4,14 @@ class UDP_ServerConnection
 {
 	public:
 
-		void Initialize();
+		bool Initialize();
 		void sendMessage(char *message);
 		void getGameState();
 		void Close();
 
 	private:
         
-        UDPsocket sd;       /* Socket descriptor */
-        UDPpacket *p;       /* Pointer to packet memory */
-        IPaddress srvadd;
+        UDPsocket socket;        		 /* Socket descriptor */
+        UDPpacket *packet;      		 /* Pointer to packet memory */
+        IPaddress serverAddress;		 /* Address of server */
 };
