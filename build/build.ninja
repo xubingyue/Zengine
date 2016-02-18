@@ -28,15 +28,19 @@ include rules.ninja
 
 build CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/ZengineClient.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/client/ZengineClient.cpp
   DEP_FILE = CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/ZengineClient.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I../src/client -I../src/client/network
+  FLAGS = -I/usr/include/SDL2 -I../src/client -I../src/client/network -I../src/client/shaders
   OBJECT_DIR = CMakeFiles/ZengineClient.dir
 build CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/network/Network.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/client/network/Network.cpp
   DEP_FILE = CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/network/Network.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I../src/client -I../src/client/network
+  FLAGS = -I/usr/include/SDL2 -I../src/client -I../src/client/network -I../src/client/shaders
+  OBJECT_DIR = CMakeFiles/ZengineClient.dir
+build CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/shaders/Shader.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/client/shaders/Shader.cpp
+  DEP_FILE = CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/shaders/Shader.cpp.o.d
+  FLAGS = -I/usr/include/SDL2 -I../src/client -I../src/client/network -I../src/client/shaders
   OBJECT_DIR = CMakeFiles/ZengineClient.dir
 build CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/Main.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/client/Main.cpp
   DEP_FILE = CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/Main.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I../src/client -I../src/client/network
+  FLAGS = -I/usr/include/SDL2 -I../src/client -I../src/client/network -I../src/client/shaders
   OBJECT_DIR = CMakeFiles/ZengineClient.dir
 
 # =============================================================================
@@ -46,8 +50,8 @@ build CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/Main.cpp
 #############################################
 # Link the executable /home/czehr/Devlib/Zengine/bin/ZengineClient
 
-build /home/czehr/Devlib/Zengine/bin/ZengineClient: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/ZengineClient.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/network/Network.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/Main.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2main.a /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_net.so /usr/lib/x86_64-linux-gnu/libGLU.so /usr/lib/x86_64-linux-gnu/libGL.so /usr/lib/x86_64-linux-gnu/libSM.so /usr/lib/x86_64-linux-gnu/libICE.so /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so
-  LINK_LIBRARIES = -rdynamic -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic -lSDL2 -lpthread -lSDL2_net -lGLU -lGL -lSM -lICE -lX11 -lXext
+build /home/czehr/Devlib/Zengine/bin/ZengineClient: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/ZengineClient.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/network/Network.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/shaders/Shader.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/Main.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2main.a /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_net.so /usr/lib/x86_64-linux-gnu/libGLU.so /usr/lib/x86_64-linux-gnu/libGL.so /usr/lib/x86_64-linux-gnu/libSM.so /usr/lib/x86_64-linux-gnu/libICE.so /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so /usr/lib/x86_64-linux-gnu/libGLEW.so
+  LINK_LIBRARIES = -rdynamic -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic -lSDL2 -lpthread -lSDL2_net -lGLU -lGL -lSM -lICE -lX11 -lXext -lGLEW
   POST_BUILD = :
   PRE_LINK = :
   TARGET_PDB = ZengineClient.dbg
@@ -89,6 +93,35 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
 build edit_cache: phony CMakeFiles/edit_cache.util
 
 #############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/czehr/Devlib/Zengine/build && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+build install: phony CMakeFiles/install.util
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/czehr/Devlib/Zengine/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+build install/local: phony CMakeFiles/install/local.util
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/czehr/Devlib/Zengine/build && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+build install/strip: phony CMakeFiles/install/strip.util
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+#############################################
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
@@ -122,12 +155,12 @@ default all
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeCCompiler.cmake /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeCXXCompiler.cmake /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeSystem.cmake /home/czehr/Devlib/Zengine/build/CMakeLists.txt /home/czehr/Devlib/Zengine/build/CMakeScripts/FindSDL2.cmake /home/czehr/Devlib/Zengine/build/CMakeScripts/FindSDL2_NET.cmake /usr/share/cmake-2.8/Modules/CMakeCInformation.cmake /usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake /usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-2.8/Modules/CMakeGenericSystem.cmake /usr/share/cmake-2.8/Modules/CMakeParseArguments.cmake /usr/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-2.8/Modules/CheckFunctionExists.cmake /usr/share/cmake-2.8/Modules/CheckIncludeFiles.cmake /usr/share/cmake-2.8/Modules/CheckLibraryExists.cmake /usr/share/cmake-2.8/Modules/CheckSymbolExists.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU-C.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU.cmake /usr/share/cmake-2.8/Modules/FindOpenGL.cmake /usr/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-2.8/Modules/FindPackageMessage.cmake /usr/share/cmake-2.8/Modules/FindThreads.cmake /usr/share/cmake-2.8/Modules/FindX11.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-2.8/Modules/Platform/Linux.cmake /usr/share/cmake-2.8/Modules/Platform/UnixPaths.cmake CMakeCache.txt
+build build.ninja: RERUN_CMAKE | /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeCCompiler.cmake /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeCXXCompiler.cmake /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeSystem.cmake /home/czehr/Devlib/Zengine/build/CMakeLists.txt /home/czehr/Devlib/Zengine/build/CMakeScripts/FindSDL2.cmake /home/czehr/Devlib/Zengine/build/CMakeScripts/FindSDL2_NET.cmake /usr/share/cmake-2.8/Modules/CMakeCInformation.cmake /usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake /usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-2.8/Modules/CMakeGenericSystem.cmake /usr/share/cmake-2.8/Modules/CMakeParseArguments.cmake /usr/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-2.8/Modules/CheckFunctionExists.cmake /usr/share/cmake-2.8/Modules/CheckIncludeFiles.cmake /usr/share/cmake-2.8/Modules/CheckLibraryExists.cmake /usr/share/cmake-2.8/Modules/CheckSymbolExists.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU-C.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU.cmake /usr/share/cmake-2.8/Modules/FindGLEW.cmake /usr/share/cmake-2.8/Modules/FindOpenGL.cmake /usr/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-2.8/Modules/FindPackageMessage.cmake /usr/share/cmake-2.8/Modules/FindThreads.cmake /usr/share/cmake-2.8/Modules/FindX11.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-2.8/Modules/Platform/Linux.cmake /usr/share/cmake-2.8/Modules/Platform/UnixPaths.cmake CMakeCache.txt
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeCCompiler.cmake /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeCXXCompiler.cmake /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeSystem.cmake /home/czehr/Devlib/Zengine/build/CMakeLists.txt /home/czehr/Devlib/Zengine/build/CMakeScripts/FindSDL2.cmake /home/czehr/Devlib/Zengine/build/CMakeScripts/FindSDL2_NET.cmake /usr/share/cmake-2.8/Modules/CMakeCInformation.cmake /usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake /usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-2.8/Modules/CMakeGenericSystem.cmake /usr/share/cmake-2.8/Modules/CMakeParseArguments.cmake /usr/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-2.8/Modules/CheckFunctionExists.cmake /usr/share/cmake-2.8/Modules/CheckIncludeFiles.cmake /usr/share/cmake-2.8/Modules/CheckLibraryExists.cmake /usr/share/cmake-2.8/Modules/CheckSymbolExists.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU-C.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU.cmake /usr/share/cmake-2.8/Modules/FindOpenGL.cmake /usr/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-2.8/Modules/FindPackageMessage.cmake /usr/share/cmake-2.8/Modules/FindThreads.cmake /usr/share/cmake-2.8/Modules/FindX11.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-2.8/Modules/Platform/Linux.cmake /usr/share/cmake-2.8/Modules/Platform/UnixPaths.cmake CMakeCache.txt: phony
+build /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeCCompiler.cmake /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeCXXCompiler.cmake /home/czehr/Devlib/Zengine/build/CMakeFiles/2.8.12.2/CMakeSystem.cmake /home/czehr/Devlib/Zengine/build/CMakeLists.txt /home/czehr/Devlib/Zengine/build/CMakeScripts/FindSDL2.cmake /home/czehr/Devlib/Zengine/build/CMakeScripts/FindSDL2_NET.cmake /usr/share/cmake-2.8/Modules/CMakeCInformation.cmake /usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake /usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-2.8/Modules/CMakeGenericSystem.cmake /usr/share/cmake-2.8/Modules/CMakeParseArguments.cmake /usr/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-2.8/Modules/CheckFunctionExists.cmake /usr/share/cmake-2.8/Modules/CheckIncludeFiles.cmake /usr/share/cmake-2.8/Modules/CheckLibraryExists.cmake /usr/share/cmake-2.8/Modules/CheckSymbolExists.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU-C.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-2.8/Modules/Compiler/GNU.cmake /usr/share/cmake-2.8/Modules/FindGLEW.cmake /usr/share/cmake-2.8/Modules/FindOpenGL.cmake /usr/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-2.8/Modules/FindPackageMessage.cmake /usr/share/cmake-2.8/Modules/FindThreads.cmake /usr/share/cmake-2.8/Modules/FindX11.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-2.8/Modules/Platform/Linux.cmake /usr/share/cmake-2.8/Modules/Platform/UnixPaths.cmake CMakeCache.txt: phony
 
 #############################################
 # Clean all the built files.

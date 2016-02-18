@@ -2,6 +2,7 @@
    Include Files
 */ 
 #include <ZengineClient.h>
+#include <Shader.h>
 
 /*
   Constants (temporary)
@@ -101,12 +102,21 @@ bool ZengineClient::Initialize()
 
     /* End of OpenGL initializaion */
 
+    GLenum err = glewInit();
+    if (err != GLEW_OK)
+        exit(1); // or handle the error in a nicer way
+    if (!GLEW_VERSION_2_1)  // check that the machine supports the 2.1 API.
+        exit(1); // or handle the error in a nicer way
+
 
     /* Enable SDL text input */
     SDL_StartTextInput();
   
     /* Start server connection */
     serverConnection.Initialize();
+
+    /* Clear message */
+    memset(message, 0, sizeof(message));
 
     return true;
 }
@@ -145,7 +155,7 @@ void ZengineClient::OnEvent(SDL_Event* Event)
             serverConnection.sendMessage(message);
 
             /* Clear message */
-            memset(message,0,sizeof(message));
+            memset(message, 0, sizeof(message));
 
         } 
     }
@@ -160,6 +170,17 @@ void ZengineClient::Loop()
 
 void ZengineClient::Render()
 {
+    
+    //Test out our new Shader.h
+    Shader testShader(  "../src/client/shaders/simpleVertexShader.vs",
+                        "../src/client/shaders/simpleFragmentShader.fs"
+                        );       
+
+
+
+
+
+
     /* Clear color buffer */
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear( GL_COLOR_BUFFER_BIT );

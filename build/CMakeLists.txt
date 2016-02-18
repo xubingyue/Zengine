@@ -1,6 +1,5 @@
 # Project-wide CMake for Zengine
 # author: Chris Zehr, chris.zzehr@gmail.com
-# 2/18/2016
 
 cmake_minimum_required (VERSION 2.8)
 project (Zengine)
@@ -21,6 +20,14 @@ if (OPENGL_FOUND)
 else (OPENGL_FOUND)
     MESSAGE("OpenGL environment missing")
 endif (OPENGL_FOUND)
+
+# Find include directories for GLEW
+find_package(GLEW REQUIRED)
+if (GLEW_FOUND)
+    MESSAGE("GLEW Correctly Found")
+else (GLEW_FOUND)
+    MESSAGE("GLEW environment missing")
+endif (GLEW_FOUND)
 
 ###################################################################################
 
@@ -60,12 +67,19 @@ set (Server_SOURCES
 set(Client_HEADERS 
     ../src/client/ZengineClient.h
     ../src/client/network/Network.h
+    ../src/client/shaders/Shader.h
     )
 
 set(Client_SOURCES
     ../src/client/ZengineClient.cpp
     ../src/client/network/Network.cpp
+    ../src/client/shaders/Shader.cpp
     ../src/client/Main.cpp
+    )
+
+set(Client_SHADERS
+    ../src/client/shaders/simpleFragmentShader.fs 
+    ../src/client/shaders/simpleVertexShader.vs 
     )
 
 
@@ -81,9 +95,9 @@ add_executable(ZengineServer
 add_executable(ZengineClient 
     ${Client_SOURCES}
     ${Client_HEADERS} 
+    ${Client_SHADERS}
     ../src/client/Main.cpp 
     )
-
 
 # Add include directories for Server and Client
 target_include_directories(ZengineServer PRIVATE 
@@ -93,17 +107,26 @@ target_include_directories(ZengineServer PRIVATE
      )
 target_include_directories(ZengineClient PRIVATE 
     ${OPENGL_INCLUDE_DIR} 
+    ${GLEW_INCLUDE_DIRS}
     ${SDL2_INCLUDE_DIR} 
     ${SDL2_NET_INCLUDE_DIR} 
     ../src/client
     ../src/client/network
+    ../src/client/shaders
     )
+
+# Install shader source files
+INSTALL(
+    FILES ${Client_SHADERS}
+    DESTINATION ${CMAKE_BINARY_DIR}/../src/client/shaders
+)
 
 # Link Libraries for Server and Client
 target_link_libraries (ZengineClient 
     ${SDL2_LIBRARY} 
     ${SDL2_NET_LIBRARY} 
-    ${OPENGL_LIBRARIES}  
+    ${OPENGL_LIBRARIES} 
+    ${GLEW_LIBRARIES} 
     )
 target_link_libraries (ZengineServer 
     ${SDL2_NET_LIBRARY}
