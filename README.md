@@ -7,7 +7,7 @@ Eventually this will be a working engine. For now, it's more of an educational p
 TODO:
 
 - ~~Refactor and clean up Client code.~~
-- re-implement OpenGL shaders in client.
+- re-implement OpenGL shaders in client. :IN PROGRESS, just need to implement drawing now
 - add game object and gamestate
 - implement server broadcast gamestate
 
