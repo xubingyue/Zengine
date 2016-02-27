@@ -52,7 +52,7 @@ bool ZengineClient::Initialize()
 	     		
     /* Set OpenGL Version, Major and Minor */
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		  
     /* Use Vsync */
@@ -100,17 +100,24 @@ bool ZengineClient::Initialize()
         return false;
     }
 
-    /* End of OpenGL initializaion */
+    /* Initialize GLEW */
+    error = glewInit();
+    if (error != GLEW_OK)
+    {
+        printf("Error initializing GLEW! %s\n", gluErrorString( error ) );
+        return false; // or handle the error in a nicer way
+    }
+    if (!GLEW_VERSION_2_1) 
+    {
+        printf("Cannot support GLEW_VERSION_2_1 API");
+        return false;
+    }
 
-    GLenum err = glewInit();
-    if (err != GLEW_OK)
-        exit(1); // or handle the error in a nicer way
-    if (!GLEW_VERSION_2_1)  // check that the machine supports the 2.1 API.
-        exit(1); // or handle the error in a nicer way
+    /* End of OpenGL initializaion */
 
 
     /* Enable SDL text input */
-    SDL_StartTextInput();
+    SDL_StartTextInput(); 
   
     /* Start server connection */
     serverConnection.Initialize();
@@ -118,14 +125,17 @@ bool ZengineClient::Initialize()
     /* Clear message */
     memset(message, 0, sizeof(message));
 
-    return true;
-}
+    return true; 
+} 
 
 void ZengineClient::OnEvent(SDL_Event* Event)
 {
     /* User requests quit */
     if( Event->type == SDL_QUIT)
+    {
         Running = false;
+        serverConnection.sendMessage("quit");
+    }
 
     if (Event->type == SDL_TEXTINPUT)
         strcat(message, Event->text.text);

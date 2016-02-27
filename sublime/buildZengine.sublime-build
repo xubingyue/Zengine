@@ -1,0 +1,18 @@
+/* 
+	This file needs to be saved in sublime-text-3/Packages/User in order for Sublime
+	to be able to build properly.
+*/
+
+{
+ //Capture build system output
+ "file_regex": "^(.*)\\(([0-9]*)\\)(\\s:\\s)(.*)",
+ "working_dir": "${project_path}",
+
+ //Make sure build system can find ninja
+ "env":{"NINJAPATH": "/usr/sbin:/usr/bin:/sbin:/bin"},
+
+ //Execute following command
+ "cmd" : ["ninja -C ../build & gnome-terminal --title='Zengine Server' -e ./../bin/ZengineServer & ./../bin/ZengineClient"],
+ "shell": true
+
+} 
