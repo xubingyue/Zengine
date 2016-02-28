@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include <ZengineServer.h>  
 
 /*
@@ -22,6 +23,8 @@ void ZengineServer::Loop()
 {
 
     message = clientChannel.getMessage();
+
+   
 
 
     /* game.handleMessage(message) */

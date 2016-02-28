@@ -1,36 +1,30 @@
-//ZengineClient.h
 #include <SDL2/SDL.h>
-#include <GL/glew.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_net.h> 
 
+#include <Window.h>
 #include <Network.h>
+#include <Renderer.h>
 
-
-//Standard libraries
-#include <stdio.h> 
-#include <stdlib.h>
-#include <string.h>
-#include <fstream>
 
 /*
   Class Declaration
 */
 
 class ZengineClient {
-    private:
-        bool    Running;
+    
  
     public:
         ZengineClient();
  
         int Run();
+
+    private:
+        bool    Running;
  
-    public:
+    private:
  
         bool Initialize();
  
-        void OnEvent(SDL_Event* Event); 
+        void OnEvent(SDL_Event* Event); //SDL_Event* Event
  
         //Non-Server related things
         void Loop();
@@ -42,14 +36,15 @@ class ZengineClient {
     private:
    
         SDL_Window* window;
-        SDL_GLContext context;
+        //SDL_Event Event;
 
         char message[256];
         char *composition;
         Sint32 cursor;
         Sint32 selection_len;
 
-
+        Window windower;
         UDP_ServerConnection serverConnection;
+        Renderer renderer;
 
 };

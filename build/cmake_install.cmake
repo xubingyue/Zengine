@@ -34,16 +34,16 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/czehr/Devlib/Zengine/build/../src/client/shaders/simpleFragmentShader.fs;/home/czehr/Devlib/Zengine/build/../src/client/shaders/simpleVertexShader.vs")
+   "/home/czehr/Devlib/Zengine/build/../src/client/renderer/shaders/simpleFragmentShader.fs;/home/czehr/Devlib/Zengine/build/../src/client/renderer/shaders/simpleVertexShader.vs")
   IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
   IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-FILE(INSTALL DESTINATION "/home/czehr/Devlib/Zengine/build/../src/client/shaders" TYPE FILE FILES
-    "/home/czehr/Devlib/Zengine/build/../src/client/shaders/simpleFragmentShader.fs"
-    "/home/czehr/Devlib/Zengine/build/../src/client/shaders/simpleVertexShader.vs"
+FILE(INSTALL DESTINATION "/home/czehr/Devlib/Zengine/build/../src/client/renderer/shaders" TYPE FILE FILES
+    "/home/czehr/Devlib/Zengine/build/../src/client/renderer/shaders/simpleFragmentShader.fs"
+    "/home/czehr/Devlib/Zengine/build/../src/client/renderer/shaders/simpleVertexShader.vs"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

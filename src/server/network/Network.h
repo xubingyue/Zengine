@@ -11,7 +11,7 @@ class UDP_Network
 
 	private:
         
-        UDPsocket sd;       /* Socket descriptor */
-        UDPpacket *p;       /* Pointer to packet memory */
+        UDPsocket socket;       /* Socket descriptor */
+        UDPpacket *packet;      /* Pointer to packet memory */
 };
 

@@ -67,19 +67,23 @@ set (Server_SOURCES
 set(Client_HEADERS 
     ../src/client/ZengineClient.h
     ../src/client/network/Network.h
-    ../src/client/shaders/Shader.h
+    ../src/client/renderer/shaders/Shader.h
+    ../src/client/renderer/Renderer.h
+    ../src/client/window/Window.h
     )
 
 set(Client_SOURCES
     ../src/client/ZengineClient.cpp
     ../src/client/network/Network.cpp
-    ../src/client/shaders/Shader.cpp
+    ../src/client/renderer/Renderer.cpp
+    ../src/client/window/Window.cpp
+    ../src/client/renderer/shaders/Shader.cpp
     ../src/client/Main.cpp
     )
 
 set(Client_SHADERS
-    ../src/client/shaders/simpleFragmentShader.fs 
-    ../src/client/shaders/simpleVertexShader.vs 
+    ../src/client/renderer/shaders/simpleFragmentShader.fs 
+    ../src/client/renderer/shaders/simpleVertexShader.vs 
     )
 
 
@@ -112,13 +116,15 @@ target_include_directories(ZengineClient PRIVATE
     ${SDL2_NET_INCLUDE_DIR} 
     ../src/client
     ../src/client/network
-    ../src/client/shaders
+    ../src/client/renderer
+    ../src/client/renderer/shaders
+    ../src/client/window
     )
 
 # Install shader source files
 INSTALL(
     FILES ${Client_SHADERS}
-    DESTINATION ${CMAKE_BINARY_DIR}/../src/client/shaders
+    DESTINATION ${CMAKE_BINARY_DIR}/../src/client/renderer/shaders
 )
 
 # Link Libraries for Server and Client

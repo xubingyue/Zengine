@@ -11,14 +11,14 @@ void UDP_Network::Initialize()
 	}
  
 	/* Open a socket */
-	if (!(sd = SDLNet_UDP_Open(3000)))
+	if (!(socket = SDLNet_UDP_Open(3000)))
 	{
 		fprintf(stderr, "SDLNet_UDP_Open: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
 	}
  
 	/* Make space for the packet */
-	if (!(p = SDLNet_AllocPacket(512)))
+	if (!(packet = SDLNet_AllocPacket(512)))
 	{
 		fprintf(stderr, "SDLNet_AllocPacket: %s\n", SDLNet_GetError());
 		exit(EXIT_FAILURE);
@@ -26,20 +26,20 @@ void UDP_Network::Initialize()
 
 }
 
-char* UDP_Network::getMessage()
+char* UDP_Network::getMessage() 
 {
-	if (SDLNet_UDP_Recv(this->sd, this->p))
+	if (SDLNet_UDP_Recv(this->socket, this->packet))
 	{
 		printf("UDP Packet incoming\n");
-		printf("\tChan:    %d\n", this->p->channel);
-		printf("\tData:    %s\n", (char *)this->p->data);
-		printf("\tLen:     %d\n", this->p->len);
-		printf("\tMaxlen:  %d\n", this->p->maxlen);
-		printf("\tStatus:  %d\n", this->p->status);
-		printf("\tAddress: %x %x\n", this->p->address.host, this->p->address.port);
+		printf("\tChan:    %d\n", this->packet->channel);
+		printf("\tData:    %s\n", (char *)this->packet->data);
+		printf("\tLen:     %d\n", this->packet->len);
+		printf("\tMaxlen:  %d\n", this->packet->maxlen);
+		printf("\tStatus:  %d\n", this->packet->status);
+		printf("\tAddress: %x %x\n", this->packet->address.host, this->packet->address.port);
 	}
 
-	return (char *)this->p->data;
+	return (char *)this->packet->data;
 }
 
 void UDP_Network::broadcastGameState(int* gamestate)
@@ -50,6 +50,6 @@ void UDP_Network::broadcastGameState(int* gamestate)
 void UDP_Network::Close()
 {
 	/* Clean and exit */
-	SDLNet_FreePacket(p);
+	SDLNet_FreePacket(packet);
 	SDLNet_Quit();
 }

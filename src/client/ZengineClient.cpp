@@ -2,7 +2,6 @@
    Include Files
 */ 
 #include <ZengineClient.h>
-#include <Shader.h>
 
 /*
   Constants (temporary)
@@ -22,11 +21,10 @@ bool ZengineClient::Initialize()
     {
         printf( "SDL COULD NOT INITIALIZE! SDL_ERROR: %s\n", SDL_GetError() );
         return false;
-    }
-	
+    }	
 	    
     /* Create window */
-    this->window = SDL_CreateWindow(
+    window = SDL_CreateWindow(
             "Zengine Client",                  //Window Title
        		SDL_WINDOWPOS_UNDEFINED,           //Initial x position
        		SDL_WINDOWPOS_UNDEFINED,           //Initial y position
@@ -36,85 +34,13 @@ bool ZengineClient::Initialize()
        		| SDL_WINDOW_SHOWN
        		);
 
-    if( this->window == NULL )
+    if( window == NULL )
     {
         printf( "Window could not be created! SDL_ERROR: %s\n", SDL_GetError() );
         return false;
     }
-	 	    
-    /* Create GL context with SDL window */
-    this->context = SDL_GL_CreateContext(window);
-    if(this->context == NULL)
-    {
-        printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError() );
-        return false;
-    }
-	     		
-    /* Set OpenGL Version, Major and Minor */
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-		  
-    /* Use Vsync */
-    if(SDL_GL_SetSwapInterval(1) < 0)
-    {
-        printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-        return false;
-    }
 
-    /* OpenGL Initialization */
-    GLenum error = GL_NO_ERROR;
-
-    /* Initialize Projection Matrix */
-    glMatrixMode( GL_PROJECTION ); 
-    glLoadIdentity();
-
-    /* Check for error */
-    error = glGetError();
-    if( error != GL_NO_ERROR )
-    {
-        printf( "Error initializing OpenGL! %s\n", gluErrorString( error ) ); 
-        return false;
-    }
-
-    /* Initialize Modelview Matrix */
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity(); 
-
-    /* Check for error */
-    error = glGetError(); 
-    if( error != GL_NO_ERROR )
-    {
-        printf( "Error initializing OpenGL! %s\n", gluErrorString( error ) );
-        return false;
-    }
-
-    /* Initialize clear color */
-    glClearColor( 0.f, 0.f, 0.f, 1.f );
-
-    /* Check for error */ 
-    error = glGetError();
-    if( error != GL_NO_ERROR )
-    {
-        printf( "Error initializing OpenGL! %s\n", gluErrorString( error ) );
-        return false;
-    }
-
-    /* Initialize GLEW */
-    error = glewInit();
-    if (error != GLEW_OK)
-    {
-        printf("Error initializing GLEW! %s\n", gluErrorString( error ) );
-        return false; // or handle the error in a nicer way
-    }
-    if (!GLEW_VERSION_2_1) 
-    {
-        printf("Cannot support GLEW_VERSION_2_1 API");
-        return false;
-    }
-
-    /* End of OpenGL initializaion */
-
+    //windower.Initialize();
 
     /* Enable SDL text input */
     SDL_StartTextInput(); 
@@ -122,13 +48,18 @@ bool ZengineClient::Initialize()
     /* Start server connection */
     serverConnection.Initialize();
 
+
+    /* Start renderer*/
+    renderer.Initialize(window);
+
     /* Clear message */
     memset(message, 0, sizeof(message));
+
 
     return true; 
 } 
 
-void ZengineClient::OnEvent(SDL_Event* Event)
+void ZengineClient::OnEvent(SDL_Event* Event) //SDL_Event* Event
 {
     /* User requests quit */
     if( Event->type == SDL_QUIT)
@@ -169,6 +100,23 @@ void ZengineClient::OnEvent(SDL_Event* Event)
 
         } 
     }
+
+    // /* Clear message */
+    // memset(message, 0, sizeof(message));
+
+    // /* Get new message */
+    // strcpy(message, windower.handleEvents());
+
+    // //message = windower.handleEvents();
+
+    // if(!strcmp(message, "quit"))
+    // {
+    //     Running = false;
+    // }
+
+    // /*Send message to server */
+    // serverConnection.sendMessage(message);
+
 }
 
 void ZengineClient::Loop()
@@ -176,27 +124,20 @@ void ZengineClient::Loop()
   
     serverConnection.getGameState();
 
+
+
+
 }
 
 void ZengineClient::Render()
 {
-    
-    //Test out our new Shader.h
-    Shader testShader(  "../src/client/shaders/simpleVertexShader.vs",
-                        "../src/client/shaders/simpleFragmentShader.fs"
-                        );       
 
+    renderer.Render();
 
-
-
-
-
-    /* Clear color buffer */
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear( GL_COLOR_BUFFER_BIT );
+    //windower.updateScreen();
 
     /* Update screen */
-    SDL_GL_SwapWindow( window );
+     SDL_GL_SwapWindow( window );
 
 }
 
@@ -204,12 +145,16 @@ void ZengineClient::Exit()
 {
     /* Destroy window and context */
     SDL_DestroyWindow( window );
-    SDL_GL_DeleteContext( context );
 
     /* Quit SDL subsystems */
     SDL_Quit();
     SDL_StopTextInput();
  
+    /* Close renderer */
+    renderer.Close();
+
+    //windower.Close();
+
     /* Close connection to server */
     serverConnection.Close();
 
@@ -218,7 +163,6 @@ void ZengineClient::Exit()
 ZengineClient::ZengineClient()
 {
   Running = true;
-  
 }
 
 
@@ -234,7 +178,7 @@ ZengineClient::ZengineClient()
 int ZengineClient::Run()
 {
     if(!Initialize())
-        return -1;
+         return -1;
     
 
     SDL_Event Event;
@@ -243,6 +187,8 @@ int ZengineClient::Run()
     {
         while(SDL_PollEvent(&Event)) 
             OnEvent(&Event);
+
+        //OnEvent();
 
         Loop();
 

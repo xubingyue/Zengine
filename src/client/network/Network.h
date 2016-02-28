@@ -14,4 +14,5 @@ class UDP_ServerConnection
         UDPsocket socket;        		 /* Socket descriptor */
         UDPpacket *packet;      		 /* Pointer to packet memory */
         IPaddress serverAddress;		 /* Address of server */
+        
 };
