@@ -34,10 +34,11 @@ bool UDP_ServerConnection::Initialize()
 	return true;
 }
 
-void UDP_ServerConnection::sendMessage(char* message)
+void UDP_ServerConnection::sendMessage(string message)
 {
 	/* Add message to packet */
-	strcpy((char *)packet->data, message);
+	strcpy((char *)packet->data, message.c_str());
+	//packet->data = message.c_str();
 
 	/* Set the destination host and destination port */
 	packet->address.host = serverAddress.host;  

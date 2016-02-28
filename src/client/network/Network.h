@@ -1,11 +1,15 @@
-  #include <SDL2/SDL_net.h>
+#include <SDL2/SDL_net.h>
+
+#include <string>
+
+using namespace std;
 
 class UDP_ServerConnection
 {
 	public:
 
 		bool Initialize();
-		void sendMessage(char *message);
+		void sendMessage(string message);
 		void getGameState();
 		void Close();
 

@@ -7,8 +7,8 @@ bool Renderer::Initialize(SDL_Window* SDLwindow)
 	window = SDLwindow;
 
 	 /* Create GL context with SDL window */
-    this->context = SDL_GL_CreateContext(window);
-    if(this->context == NULL)
+    context = SDL_GL_CreateContext(window);
+    if(context == NULL)
     {
         printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError() );
         return false;
@@ -104,5 +104,5 @@ void Renderer::Close()
 
 
     /* Destroy window and context */
-    SDL_DestroyWindow( window );
+    //SDL_DestroyWindow( window );
 }

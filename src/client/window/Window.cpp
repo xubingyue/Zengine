@@ -2,16 +2,18 @@
 
 bool Window::Initialize()
 {
+	SCREEN_WIDTH = 640;
+	SCREEN_HEIGHT = 480;
+
 	/* Start SDL */
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
         printf( "SDL COULD NOT INITIALIZE! SDL_ERROR: %s\n", SDL_GetError() );
         return false;
     }	
-	SCREEN_WIDTH = 640;
-	SCREEN_HEIGHT = 480;     
+	    
     /* Create window */
-    window = SDL_CreateWindow(
+    sdlWindow = SDL_CreateWindow(
             "Zengine Client",                  //Window Title
        		SDL_WINDOWPOS_UNDEFINED,           //Initial x position
        		SDL_WINDOWPOS_UNDEFINED,           //Initial y position
@@ -21,89 +23,95 @@ bool Window::Initialize()
        		| SDL_WINDOW_SHOWN
        		);
 
-    if( window == NULL )
+    if( sdlWindow == NULL )
     {
         printf( "Window could not be created! SDL_ERROR: %s\n", SDL_GetError() );
         return false;
     }
+
+    /* Enable SDL text input */
+    SDL_StartTextInput(); 
 }
 
-char* Window::handleEvents()
+void Window::handleEvents()
 {
-
-
-	while(SDL_PollEvent(Event))
+	while(SDL_PollEvent(&sdlEvent)) 
 	{
 		/* User requests quit */
-    	if( Event->type == SDL_QUIT)
+    	if( sdlEvent.type == SDL_QUIT)
     	{
-    	    // Running = false;
-    	    // serverConnection.sendMessage("quit");
-    	    strcpy(message, "quit");
-    	    return message;
+        	//Running = false;
+        	message = "quit";
+        	//strcpy(message.c_str(), "quit");
+        	messageList.push_back(message);
     	}
 
-	    if (Event->type == SDL_TEXTINPUT)
-	        strcat(buffer, Event->text.text);
+    	if (sdlEvent.type == SDL_TEXTINPUT)
+    		message += sdlEvent.text.text;
+    	   // strcat(message.c_str(), sdlEvent.text.text);
 
-	    if(Event->type == SDL_TEXTEDITING)
-	    {
-	       /*
-	        Update the composition text.
-	        Update the cursor position.
-	        Update the selection length (if any).
-	        */
-    	    composition = Event->edit.text;
-    	    cursor = Event->edit.start;
-    	    selection_len = Event->edit.length;
+    	if(sdlEvent.type == SDL_TEXTEDITING)
+    	{
+    	   /*
+    	    Update the composition text.
+    	    Update the cursor position.
+    	    Update the selection length (if any).
+    	    */
+    	    composition = sdlEvent.edit.text;
+    	    cursor = sdlEvent.edit.start;
+    	    selection_len = sdlEvent.edit.length;
     	}
 
-    	if(Event->type == SDL_KEYDOWN)
+    	if(sdlEvent.type == SDL_KEYDOWN)
     	{
 
-        	if( Event->key.keysym.sym == SDLK_RETURN )
+        	if( sdlEvent.key.keysym.sym == SDLK_RETURN )
         	{
+        	    /* Quit if packet contains "quit" */
+        	   // if (!strcmp(message.c_str(), "quit"))
+        	        //Running = false;
 
-        	    // /* Quit if packet contains "quit" */
-        	    // if (!strcmp(message, "quit"))
-        	    //     Running = false;
-
-            	// /*Send message to server */
-           		// serverConnection.sendMessage(message);
-
-        		strcpy(message, buffer);
+            	/* Send message to server */
+            	//serverConnection.sendMessage(message);
+        	    	messageList.push_back(message);
 
             	/* Clear message */
-            	memset(buffer, 0, sizeof(buffer));
+            	message.clear();
+            	//memset(message.c_str(), 0, sizeof(message));
 
-            	return message;
-
-        	} 
-    	}
-    }
-}
-
-void Window::updateScreen()
+        	} 	
+    	}	
+	}	
+}	
+	
+void Window::updateWindow()
 {
-	SDL_GL_SwapWindow( window );
-}
-
-SDL_Window* Window::getWindow()
-{
-	return window;
-}
-
-char* Window::getMessage()
-{
-	return message;
+	SDL_GL_SwapWindow( sdlWindow );
 }
 
 void Window::Close()
 {
-	// /* Destroy window and context */
- //    SDL_DestroyWindow( window );
+	/* Destroy window and context */
+    SDL_DestroyWindow( sdlWindow );
 
     /* Quit SDL subsystems */
     SDL_Quit();
     SDL_StopTextInput();
+}
+
+
+vector<string> Window::getMessageList()
+{
+	return messageList;
+}
+
+SDL_Window* Window::getWindow()
+{
+	return sdlWindow;
+}
+
+void Window::clearMessageList()
+{
+	messageList.clear();
+
 }

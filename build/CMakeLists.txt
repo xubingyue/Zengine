@@ -7,6 +7,9 @@ project (Zengine)
 # Set output of final executables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
+SET(GCC_COVERAGE_COMPILE_FLAGS "-std=c++0x")
+add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
+
 ###################################################################################
 
 #Find include directories for OpenGL
@@ -67,8 +70,8 @@ set (Server_SOURCES
 set(Client_HEADERS 
     ../src/client/ZengineClient.h
     ../src/client/network/Network.h
-    ../src/client/renderer/shaders/Shader.h
     ../src/client/renderer/Renderer.h
+    ../src/client/renderer/shaders/Shader.h
     ../src/client/window/Window.h
     )
 
@@ -76,8 +79,8 @@ set(Client_SOURCES
     ../src/client/ZengineClient.cpp
     ../src/client/network/Network.cpp
     ../src/client/renderer/Renderer.cpp
-    ../src/client/window/Window.cpp
     ../src/client/renderer/shaders/Shader.cpp
+    ../src/client/window/Window.cpp
     ../src/client/Main.cpp
     )
 

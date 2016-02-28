@@ -1,29 +1,34 @@
 #include <SDL2/SDL.h>
+#include <string>
+#include <vector>
 
-class Window 
+using namespace std;
+
+class Window
 {
 	public:
+
 		bool Initialize();
-
-		char* handleEvents();
-
-		void updateScreen();
-
-		SDL_Window* getWindow();
-
-		char* getMessage();
-
+		void handleEvents();
+		void updateWindow();
 		void Close();
 
-	private:
-		SDL_Window* window;
-		SDL_Event* Event;
+		vector<string> getMessageList();
+		SDL_Window* getWindow();
+		void clearMessageList();
 
-        char message[256];
-        char buffer[256];
+	private:
+		SDL_Window* sdlWindow;
+		SDL_Event sdlEvent;
+
+		vector<string> messageList;
+		string message;
+
+		//Screen dimension constants
+		int SCREEN_WIDTH;
+		int SCREEN_HEIGHT;
+
         char *composition;
         Sint32 cursor;
         Sint32 selection_len;
-        int SCREEN_WIDTH;// = 640;
-		int SCREEN_HEIGHT;// = 480;
 };

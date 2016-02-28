@@ -4,6 +4,9 @@
 #include <Network.h>
 #include <Renderer.h>
 
+#include <vector>
+#include <string>
+using namespace std;
 
 /*
   Class Declaration
@@ -24,9 +27,8 @@ class ZengineClient {
  
         bool Initialize();
  
-        void OnEvent(SDL_Event* Event); //SDL_Event* Event
+        void OnEvent();
  
-        //Non-Server related things
         void Loop();
  
         void Render();
@@ -36,15 +38,17 @@ class ZengineClient {
     private:
    
         SDL_Window* window;
-        //SDL_Event Event;
+        SDL_Event Event;
 
-        char message[256];
+        //char message[256];
         char *composition;
         Sint32 cursor;
         Sint32 selection_len;
 
-        Window windower;
+        vector<string> messageList;
+
         UDP_ServerConnection serverConnection;
         Renderer renderer;
+        Window zengineWindow;
 
 };
