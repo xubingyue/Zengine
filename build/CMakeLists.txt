@@ -53,7 +53,19 @@ else (SDL2_NET_FOUND)
     MESSAGE("SDL2_NET environment missing")
 endif (SDL2_NET_FOUND)
 
+#Find include directories for Lua
+find_package(Lua53 REQUIRED)
+if(LUA53_FOUND)
+    MESSAGE("Lua Correctly Found")
+else(LUA53_FOUND)
+    MESSAGE("Lua Environment missing")
+endif(LUA53_FOUND)
+
 ###################################################################################
+
+# Get header files for LuaBridge
+file(GLOB LuaBridge_HEADERS1 ../src/LuaBridge *.h)
+file(GLOB LuaBridge_HEADERS2 ../src/LuaBridge/detail *.h)
 
 # List header and source files for Server and Client
 set(Server_HEADERS
@@ -67,7 +79,7 @@ set (Server_SOURCES
     ../src/server/Main.cpp
     )
 
-set(Client_HEADERS 
+set(Client_HEADERS
     ../src/client/ZengineClient.h
     ../src/client/network/Network.h
     ../src/client/renderer/Renderer.h
@@ -96,7 +108,9 @@ set(Client_SHADERS
 # Add executables for Server and Client
 add_executable(ZengineServer 
     ${Server_SOURCES} 
-    ${Server_HEADERS} 
+    ${Server_HEADERS}
+    ${LuaBridge_HEADERS1}
+    ${LuaBridge_HEADERS2} 
     ../src/server/Main.cpp 
     )
 add_executable(ZengineClient 
@@ -109,14 +123,18 @@ add_executable(ZengineClient
 # Add include directories for Server and Client
 target_include_directories(ZengineServer PRIVATE 
     ${SDL2_NET_INCLUDE_DIR}
+    ${LUA53_INCLUDE_DIR}
     ../src/server
     ../src/server/network
-     )
+    ../src/LuaBridge
+    ../src/LuaBridge/detail
+    )
 target_include_directories(ZengineClient PRIVATE 
     ${OPENGL_INCLUDE_DIR} 
     ${GLEW_INCLUDE_DIRS}
     ${SDL2_INCLUDE_DIR} 
     ${SDL2_NET_INCLUDE_DIR} 
+    ${LUA53_INCLUDE_DIR}
     ../src/client
     ../src/client/network
     ../src/client/renderer
@@ -136,9 +154,12 @@ target_link_libraries (ZengineClient
     ${SDL2_NET_LIBRARY} 
     ${OPENGL_LIBRARIES} 
     ${GLEW_LIBRARIES} 
+    ${LUA53_LIBRARIES}
     )
 target_link_libraries (ZengineServer 
     ${SDL2_NET_LIBRARY}
+    ${LUA53_LIBRARIES}
+    ${CMAKE_DL_LIBS}
     )
 
 ###################################################################################

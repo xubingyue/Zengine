@@ -2,13 +2,12 @@
 
 
 
-bool Renderer::Initialize(SDL_Window* SDLwindow)
+bool Renderer::Initialize(SDL_Window* sdlWindow)
 {
-	window = SDLwindow;
 
 	 /* Create GL context with SDL window */
-    context = SDL_GL_CreateContext(window);
-    if(context == NULL)
+    sdlGlContext = SDL_GL_CreateContext(sdlWindow);
+    if(sdlGlContext == NULL)
     {
         printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError() );
         return false;
@@ -26,8 +25,11 @@ bool Renderer::Initialize(SDL_Window* SDLwindow)
         return false;
     }
 
+    /*************************/
     /* OpenGL Initialization */
-    GLenum error = GL_NO_ERROR;
+    /*************************/
+    
+    error = GL_NO_ERROR;
 
     /* Initialize Projection Matrix */
     glMatrixMode( GL_PROJECTION ); 
@@ -76,8 +78,9 @@ bool Renderer::Initialize(SDL_Window* SDLwindow)
         printf("Cannot support GLEW_VERSION_2_1 API");
         return false;
     }
-
+    /*******************************/
     /* End of OpenGL initializaion */
+    /*******************************/
 }
 
 void Renderer::Render()
@@ -99,7 +102,7 @@ void Renderer::Render()
 
 void Renderer::Close()
 {
-	SDL_GL_DeleteContext( context );
+	SDL_GL_DeleteContext( sdlGlContext );
 
 
 

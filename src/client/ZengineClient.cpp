@@ -31,18 +31,20 @@ void ZengineClient::OnEvent()
 
     zengineWindow.handleEvents();
 
-    messageList = zengineWindow.getMessageList();
+    windowMessageList = zengineWindow.getMessageList();
     zengineWindow.clearMessageList();
 
-
-    for ( auto &message : messageList) // access by reference to avoid copying
+    for ( auto &message : windowMessageList) 
     {  
         serverConnection.sendMessage(message.c_str());
         if (message == "quit")
             Running = false;
     }
-        
-    messageList.clear();
+    
+    //zengineWindow.clearMessageList();
+ 
+
+    windowMessageList.clear();
 
 }
 

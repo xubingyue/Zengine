@@ -15,6 +15,7 @@ class Renderer
 
 	private:
 
-		SDL_Window* window;
-		SDL_GLContext context;
+		SDL_GLContext sdlGlContext;
+
+		GLenum error;
 };

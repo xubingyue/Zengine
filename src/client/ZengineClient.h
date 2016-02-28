@@ -1,4 +1,3 @@
-#include <SDL2/SDL.h>
 
 #include <Window.h>
 #include <Network.h>
@@ -45,7 +44,7 @@ class ZengineClient {
         Sint32 cursor;
         Sint32 selection_len;
 
-        vector<string> messageList;
+        vector<string> windowMessageList;
 
         UDP_ServerConnection serverConnection;
         Renderer renderer;

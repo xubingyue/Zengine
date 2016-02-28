@@ -67,18 +67,11 @@ void Window::handleEvents()
 
         	if( sdlEvent.key.keysym.sym == SDLK_RETURN )
         	{
-        	    /* Quit if packet contains "quit" */
-        	   // if (!strcmp(message.c_str(), "quit"))
-        	        //Running = false;
-
-            	/* Send message to server */
-            	//serverConnection.sendMessage(message);
-        	    	messageList.push_back(message);
+    
+        	    messageList.push_back(message);
 
             	/* Clear message */
             	message.clear();
-            	//memset(message.c_str(), 0, sizeof(message));
-
         	} 	
     	}	
 	}	
