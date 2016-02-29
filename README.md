@@ -9,11 +9,11 @@ Building with CMake and Ninja
 
 This project is built with CMake, and all CMake files are stored in /build. In the build directory, run the command:
 
- 'cmake -GNinja'
+ '''cmake -GNinja'''
 
 To generate Ninja build files. To build and run, you can use the following command:
 
-'ninja ; gnome-terminal -e ./../bin/ZengineServer & ./../bin/ZengineClient' 
+'''ninja ; gnome-terminal -e ./../bin/ZengineServer & ./../bin/ZengineClient''' 
 
 You may have to to create the bin directory inside the project root.
 
