@@ -4,17 +4,16 @@ Zengine
 Eventually this will be a working engine. For now, it's more of an educational project for me, but I'm enjoying it a lot.
 
 
-TODO:
+Building with CMake and Ninja
+========
 
-- ~~Refactor and clean up Client code.~~
-- ~~re-implement OpenGL shaders in client.~~ 
-- IN PROGRESS, just need to re-implement drawing now
-- add game object and gamestate
-- implement server broadcast gamestate
+This project is built with CMake, and all CMake files are stored in /build. In the build directory, run the command:
 
+> cmake -GNinja
 
-Next goals:
-- Client Log-in
-- Client input modifies gamestate
-- Bounding box collision
-- more OpenGL stuff
+To generate Ninja build files. To build and run, you can use the following command:
+
+> ninja ; gnome-terminal -e ./../bin/ZengineServer & ./../bin/ZengineClient 
+
+You may have to to create the bin directory inside the project root.
+
