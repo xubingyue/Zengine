@@ -58,8 +58,8 @@ build CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/Main.cpp
 #############################################
 # Link the executable /home/czehr/Devlib/Zengine/bin/ZengineClient
 
-build /home/czehr/Devlib/Zengine/bin/ZengineClient: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/ZengineClient.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/network/Network.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/renderer/Renderer.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/renderer/shaders/Shader.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/window/Window.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/Main.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2main.a /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_net.so /usr/lib/x86_64-linux-gnu/libGLU.so /usr/lib/x86_64-linux-gnu/libGL.so /usr/lib/x86_64-linux-gnu/libSM.so /usr/lib/x86_64-linux-gnu/libICE.so /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so /usr/lib/x86_64-linux-gnu/libGLEW.so /usr/local/lib/liblua.a /usr/lib/x86_64-linux-gnu/libm.so
-  LINK_LIBRARIES = -rdynamic -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic -lSDL2 -lpthread -lSDL2_net -lGLU -lGL -lSM -lICE -lX11 -lXext -lGLEW /usr/local/lib/liblua.a -lm
+build /home/czehr/Devlib/Zengine/bin/ZengineClient: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/ZengineClient.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/network/Network.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/renderer/Renderer.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/renderer/shaders/Shader.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/window/Window.cpp.o CMakeFiles/ZengineClient.dir/home/czehr/Devlib/Zengine/src/client/Main.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2main.a /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_net.so /usr/lib/x86_64-linux-gnu/libGLU.so /usr/lib/x86_64-linux-gnu/libGL.so /usr/lib/x86_64-linux-gnu/libSM.so /usr/lib/x86_64-linux-gnu/libICE.so /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so /usr/lib/x86_64-linux-gnu/libGLEW.so
+  LINK_LIBRARIES = -rdynamic -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic -lSDL2 -lpthread -lSDL2_net -lGLU -lGL -lSM -lICE -lX11 -lXext -lGLEW
   POST_BUILD = :
   PRE_LINK = :
   TARGET_PDB = ZengineClient.dbg
@@ -68,15 +68,15 @@ build /home/czehr/Devlib/Zengine/bin/ZengineClient: CXX_EXECUTABLE_LINKER CMakeF
 
 build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp
   DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/LuaBridge -I../src/LuaBridge/detail    -std=c++0x
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/LuaBridge -I../src/server/LuaBridge/detail    -std=c++0x
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
 build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/network/Network.cpp
   DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/LuaBridge -I../src/LuaBridge/detail    -std=c++0x
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/LuaBridge -I../src/server/LuaBridge/detail    -std=c++0x
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
 build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/Main.cpp
   DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/LuaBridge -I../src/LuaBridge/detail    -std=c++0x
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/LuaBridge -I../src/server/LuaBridge/detail    -std=c++0x
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
 
 # =============================================================================

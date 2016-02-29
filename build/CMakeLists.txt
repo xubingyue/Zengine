@@ -53,7 +53,7 @@ else (SDL2_NET_FOUND)
     MESSAGE("SDL2_NET environment missing")
 endif (SDL2_NET_FOUND)
 
-#Find include directories for Lua
+#Find include directories for Lua5.3
 find_package(Lua53 REQUIRED)
 if(LUA53_FOUND)
     MESSAGE("Lua Correctly Found")
@@ -63,15 +63,13 @@ endif(LUA53_FOUND)
 
 ###################################################################################
 
-# Get header files for LuaBridge
-file(GLOB LuaBridge_HEADERS1 ../src/LuaBridge *.h)
-file(GLOB LuaBridge_HEADERS2 ../src/LuaBridge/detail *.h)
-
 # List header and source files for Server and Client
 set(Server_HEADERS
     ../src/server/ZengineServer.h
     ../src/server/network/Network.h
     )
+file(GLOB Server_HEADERS ../src/server/LuaBridge *.h)
+file(GLOB Server_HEADERS ../src/server/LuaBridge/detail *.h)
 
 set (Server_SOURCES
     ../src/server/ZengineServer.cpp
@@ -101,16 +99,12 @@ set(Client_SHADERS
     ../src/client/renderer/shaders/simpleVertexShader.vs 
     )
 
-
-
 ###################################################################################
 
 # Add executables for Server and Client
 add_executable(ZengineServer 
     ${Server_SOURCES} 
     ${Server_HEADERS}
-    ${LuaBridge_HEADERS1}
-    ${LuaBridge_HEADERS2} 
     ../src/server/Main.cpp 
     )
 add_executable(ZengineClient 
@@ -126,8 +120,8 @@ target_include_directories(ZengineServer PRIVATE
     ${LUA53_INCLUDE_DIR}
     ../src/server
     ../src/server/network
-    ../src/LuaBridge
-    ../src/LuaBridge/detail
+    ../src/server/LuaBridge
+    ../src/server/LuaBridge/detail
     )
 target_include_directories(ZengineClient PRIVATE 
     ${OPENGL_INCLUDE_DIR} 
@@ -145,7 +139,7 @@ target_include_directories(ZengineClient PRIVATE
 # Install shader source files
 INSTALL(
     FILES ${Client_SHADERS}
-    DESTINATION ${CMAKE_BINARY_DIR}/../src/client/renderer/shaders
+    DESTINATION ../src/client/renderer/shaders
 )
 
 # Link Libraries for Server and Client
@@ -154,7 +148,6 @@ target_link_libraries (ZengineClient
     ${SDL2_NET_LIBRARY} 
     ${OPENGL_LIBRARIES} 
     ${GLEW_LIBRARIES} 
-    ${LUA53_LIBRARIES}
     )
 target_link_libraries (ZengineServer 
     ${SDL2_NET_LIBRARY}
