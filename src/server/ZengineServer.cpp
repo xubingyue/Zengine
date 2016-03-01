@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <ZengineServer.h>  
 
+
 /*
    ZengineServer Implementation
 */
@@ -10,24 +11,30 @@ bool ZengineServer::Initialize()
   
     clientChannel.Initialize();
 
+    zengineGame.Initialize();
+
     return true;
 }
 
 void ZengineServer::OnEvent()
 {
 
-  
+  message = clientChannel.getMessage();
+
+  /* game.handleMessage(message) */
+
 }
 
 void ZengineServer::Loop()
 {
 
-    message = clientChannel.getMessage();
+    
 
    
 
 
-    /* game.handleMessage(message) */
+    
+    zengineGame.Update();
 
     
     /* clientChannel.broadcastGameState(game.getGameState()); */
@@ -43,6 +50,8 @@ void ZengineServer::Exit()
 {
 
     clientChannel.Close();
+
+    zengineGame.Close();
 
 }
 
@@ -61,6 +70,8 @@ int ZengineServer::Run()
 
     while(Running)
     {
+
+        OnEvent();
 
         Loop();
 

@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #include <Network.h>
-
+#include <Game.h>
 
 /*
   Class Declaration
@@ -35,5 +35,6 @@ class ZengineServer {
 
         char * message;
         UDP_Network clientChannel;
+        Game zengineGame;
         
 };

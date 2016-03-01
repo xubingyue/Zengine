@@ -2,8 +2,8 @@
 
 bool Window::Initialize()
 {
-	SCREEN_WIDTH = 640;
-	SCREEN_HEIGHT = 480;
+	SCREEN_WIDTH = 1366;
+	SCREEN_HEIGHT = 768;
 
 	/* Start SDL */
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )

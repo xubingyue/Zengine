@@ -67,6 +67,7 @@ endif(LUA53_FOUND)
 set(Server_HEADERS
     ../src/server/ZengineServer.h
     ../src/server/network/Network.h
+    ../src/server/game/Game.h
     )
 file(GLOB Server_HEADERS ../src/server/LuaBridge *.h)
 file(GLOB Server_HEADERS ../src/server/LuaBridge/detail *.h)
@@ -74,6 +75,7 @@ file(GLOB Server_HEADERS ../src/server/LuaBridge/detail *.h)
 set (Server_SOURCES
     ../src/server/ZengineServer.cpp
     ../src/server/network/Network.cpp
+    ../src/server/game/Game.cpp
     ../src/server/Main.cpp
     )
 
@@ -120,6 +122,7 @@ target_include_directories(ZengineServer PRIVATE
     ${LUA53_INCLUDE_DIR}
     ../src/server
     ../src/server/network
+    ../src/server/game
     ../src/server/LuaBridge
     ../src/server/LuaBridge/detail
     )
