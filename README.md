@@ -10,6 +10,7 @@ Eventually this will be a working engine. For now, it's more of an educational p
 This project is built with CMake and Ninja, and all build files are stored in /build. Create a /bin directory in your project root, and then in the build directory, run the commands:
 
 `cmake -GNinja`
+
 `ninja`
 
 Make sure that Ninja is in your PATH.
