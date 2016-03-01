@@ -7,13 +7,13 @@ Eventually this will be a working engine. For now, it's more of an educational p
 ###Building with CMake and Ninja in Linux
 
 
-This project is built with CMake, and all CMake files are stored in /build. In the build directory, run the command:
+This project is built with CMake and Ninja, and all build files are stored in /build. Create a /bin directory in your project root, and then in the build directory, run the commands:
 
 `cmake -GNinja`
 
-To generate Ninja build files. To build and run, you can use the following command:
+`ninja`
 
-`ninja ; gnome-terminal -e ./../bin/ZengineServer & ./../bin/ZengineClient`
+Make sure that Ninja is in your PATH.
 
-You may have to to create the bin directory inside the project root.
+A .sublime-build file is stored in /sublime for a build command specific to sublime.
 
