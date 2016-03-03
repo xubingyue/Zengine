@@ -4,8 +4,9 @@ TODO:
 - ~~Refactor and clean up Client code.~~
 - ~~re-implement OpenGL shaders in client.~~ 
 - IN PROGRESS, just need to re-implement drawing now
-- add game object and gamestate
+- add ~~game object~~ and gamestate
 - implement server broadcast gamestate
+- re-sizable window
 
 
 Next goals:
