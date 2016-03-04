@@ -1,6 +1,7 @@
 #include <LuaBridge.h>
 #include <iostream>
 #include <lua.h>
+#include <string>
 //#include <lauxlib.h>
 //#include <lualib.h>
 
@@ -12,6 +13,8 @@ class Game
 
 		bool Initialize();
 
+		void handleMessage(std::string message);
+
 		void Update();
 
 		void Close();
@@ -19,5 +22,6 @@ class Game
 	private:
 
 		lua_State* luaState;
+		std::string message;
 
 };

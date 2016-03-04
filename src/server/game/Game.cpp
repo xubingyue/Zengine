@@ -52,7 +52,29 @@ bool Game::Initialize()
     if(testTitle.isString())
         titleString = testTitle.cast<std::string>();
 
-    if(testWidth.isNil() ||)
+    int width, height, depth;
+    if( testWidth.isNil() || 
+        testHeight.isNil() ||
+        testDepth.isNil() )
+    {
+        printf("Variables not found!\n");
+    }
+    else
+    {
+        width = testWidth.cast<int>();
+        height = testHeight.cast<int>();
+        depth = testDepth.cast<int>();
+    }
+
+    printf("Title: %s \nwidth = %d \nheight = %d\ndepth = %d\n", titleString.c_str(), width, height, depth);
+}
+
+void Game::handleMessage(std::string message)
+{
+    /* Handle the message */
+
+    /* Clear the message*/
+
 }
 
 void Game::Update()

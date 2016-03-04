@@ -1,5 +1,6 @@
 //ZengineServer.h
 #include <stdio.h>
+#include <string>
 
 #include <Network.h>
 #include <Game.h>
@@ -33,7 +34,7 @@ class ZengineServer {
 
     private:
 
-        char * message;
+        std::string message;
         UDP_Network clientChannel;
         Game zengineGame;
         

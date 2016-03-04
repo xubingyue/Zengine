@@ -3,7 +3,7 @@ number = 42
 
 gameWorld = 
 {
-	title = "SpellGate",
+	title = "World",
 	width = 10000,
 	height = 10000,
 	depth = 1000

@@ -1,5 +1,3 @@
-#include <string.h>
-#include <stdio.h>
 #include <ZengineServer.h>  
 
 
@@ -21,7 +19,7 @@ void ZengineServer::OnEvent()
 
   message = clientChannel.getMessage();
 
-  /* game.handleMessage(message) */
+  zengineGame.handleMessage(message);
 
 }
 
@@ -41,7 +39,8 @@ void ZengineServer::Loop()
 
 
     /* Quit if packet contains "quit" */
-    if (strcmp(message, "quit") == 0)
+    //if (strcmp(message, "quit") == 0)
+    if(message == "quit")
         Running = false;
 
 }

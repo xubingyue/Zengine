@@ -26,20 +26,22 @@ void UDP_Network::Initialize()
 
 }
 
-char* UDP_Network::getMessage() 
+std::string UDP_Network::getMessage() 
 {
 	if (SDLNet_UDP_Recv(this->socket, this->packet))
 	{
 		printf("UDP Packet incoming\n");
 		printf("\tChan:    %d\n", this->packet->channel);
-		printf("\tData:    %s\n", (char *)this->packet->data);
+		printf("\tData:    %s\n", (char*)this->packet->data);
 		printf("\tLen:     %d\n", this->packet->len);
 		printf("\tMaxlen:  %d\n", this->packet->maxlen);
 		printf("\tStatus:  %d\n", this->packet->status);
 		printf("\tAddress: %x %x\n", this->packet->address.host, this->packet->address.port);
 	}
 
-	return (char *)this->packet->data;
+	message = (char*)this->packet->data;
+
+	return message;
 }
 
 void UDP_Network::broadcastGameState(int* gamestate)
