@@ -2,10 +2,16 @@
 #include <iostream>
 #include <lua.h>
 #include <string>
+
+#include <Entity.h>
+/*#include <Component.h>*/
+#include <System.h>
+#include <GraphicsComponent.h>
+
 //#include <lauxlib.h>
 //#include <lualib.h>
 
-using namespace luabridge;
+//using namespace luabridge;
 
 class Game 
 {
@@ -21,7 +27,7 @@ class Game
 
 	private:
 
-		lua_State* luaState;
+		luabridge::lua_State* luaState;
 		std::string message;
 
 };

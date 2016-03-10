@@ -4,7 +4,7 @@ bool Game::Initialize()
 {
     std::string fileName = "../src/server/game/scripts/script.lua";
 
-	luaState = luaL_newstate();
+	luaState = luabridge::luaL_newstate();
     luaL_dofile(luaState, fileName.c_str());
     luaL_openlibs(luaState);
     lua_pcall(luaState, 0, 0, 0);
@@ -17,8 +17,8 @@ bool Game::Initialize()
         return false;
     }
 
-    LuaRef testString = getGlobal(luaState, "testString");
-    LuaRef testNum = getGlobal(luaState, "number");
+    luabridge::LuaRef testString = getGlobal(luaState, "testString");
+    luabridge::LuaRef testNum = getGlobal(luaState, "number");
 
     std::string luaString;
     if(testString.isString())
@@ -42,11 +42,11 @@ bool Game::Initialize()
     std::cout << "And here's our number:" << answer << std::endl;
 
 
-    LuaRef testTable = getGlobal(luaState, "gameWorld");
-    LuaRef testTitle = testTable["title"];
-    LuaRef testWidth = testTable["width"];
-    LuaRef testHeight = testTable["height"];
-    LuaRef testDepth = testTable["depth"];
+    luabridge::LuaRef testTable = getGlobal(luaState, "gameWorld");
+    luabridge::LuaRef testTitle = testTable["title"];
+    luabridge::LuaRef testWidth = testTable["width"];
+    luabridge::LuaRef testHeight = testTable["height"];
+    luabridge::LuaRef testDepth = testTable["depth"];
 
     std::string titleString;
     if(testTitle.isString())
@@ -74,6 +74,21 @@ void Game::handleMessage(std::string message)
     /* Handle the message */
 
     /* Clear the message*/
+
+
+    if(message == "create")
+    {
+
+        /* Create testEntity */
+        Entity* testEntity = new Entity;
+
+        /* Create graphics component */
+        GraphicsComponent* testGraphicsComponent = new GraphicsComponent;
+        testGraphicsComponent->setFileName("test.png");
+        testEntity->addComponent(std::type_index(typeid(GraphicsComponent)), testGraphicsComponent);
+
+        message.clear();
+    }
 
 }
 

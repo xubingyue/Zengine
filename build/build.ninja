@@ -68,19 +68,35 @@ build /home/czehr/Devlib/Zengine/bin/ZengineClient: CXX_EXECUTABLE_LINKER CMakeF
 
 build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp
   DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail    -std=c++0x
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail -I../src/server/game/ecs -I../src/server/game/components -I../src/server/game/systems    -std=c++0x
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
 build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/network/Network.cpp
   DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail    -std=c++0x
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail -I../src/server/game/ecs -I../src/server/game/components -I../src/server/game/systems    -std=c++0x
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
 build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/Game.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/game/Game.cpp
   DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/Game.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail    -std=c++0x
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail -I../src/server/game/ecs -I../src/server/game/components -I../src/server/game/systems    -std=c++0x
+  OBJECT_DIR = CMakeFiles/ZengineServer.dir
+build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/Entity.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/game/ecs/Entity.cpp
+  DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/Entity.cpp.o.d
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail -I../src/server/game/ecs -I../src/server/game/components -I../src/server/game/systems    -std=c++0x
+  OBJECT_DIR = CMakeFiles/ZengineServer.dir
+build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/Component.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/game/ecs/Component.cpp
+  DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/Component.cpp.o.d
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail -I../src/server/game/ecs -I../src/server/game/components -I../src/server/game/systems    -std=c++0x
+  OBJECT_DIR = CMakeFiles/ZengineServer.dir
+build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/System.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/game/ecs/System.cpp
+  DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/System.cpp.o.d
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail -I../src/server/game/ecs -I../src/server/game/components -I../src/server/game/systems    -std=c++0x
+  OBJECT_DIR = CMakeFiles/ZengineServer.dir
+build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/components/GraphicsComponent.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/game/components/GraphicsComponent.cpp
+  DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/components/GraphicsComponent.cpp.o.d
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail -I../src/server/game/ecs -I../src/server/game/components -I../src/server/game/systems    -std=c++0x
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
 build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o: CXX_COMPILER /home/czehr/Devlib/Zengine/src/server/Main.cpp
   DEP_FILE = CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o.d
-  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail    -std=c++0x
+  FLAGS = -I/usr/include/SDL2 -I/usr/local/include -I../src/server -I../src/server/network -I../src/server/game -I../src/server/LuaBridge -I../src/server/LuaBridge/detail -I../src/server/game/ecs -I../src/server/game/components -I../src/server/game/systems    -std=c++0x
   OBJECT_DIR = CMakeFiles/ZengineServer.dir
 
 # =============================================================================
@@ -90,7 +106,7 @@ build CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp
 #############################################
 # Link the executable /home/czehr/Devlib/Zengine/bin/ZengineServer
 
-build /home/czehr/Devlib/Zengine/bin/ZengineServer: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/Game.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2_net.so /usr/local/lib/liblua.a /usr/lib/x86_64-linux-gnu/libm.so
+build /home/czehr/Devlib/Zengine/bin/ZengineServer: CXX_EXECUTABLE_LINKER CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/ZengineServer.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/network/Network.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/Game.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/Entity.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/Component.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/ecs/System.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/game/components/GraphicsComponent.cpp.o CMakeFiles/ZengineServer.dir/home/czehr/Devlib/Zengine/src/server/Main.cpp.o | /usr/lib/x86_64-linux-gnu/libSDL2_net.so /usr/local/lib/liblua.a /usr/lib/x86_64-linux-gnu/libm.so
   LINK_LIBRARIES = -rdynamic -lSDL2_net /usr/local/lib/liblua.a -lm -ldl
   POST_BUILD = :
   PRE_LINK = :

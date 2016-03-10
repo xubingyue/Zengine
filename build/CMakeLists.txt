@@ -7,7 +7,7 @@ project (Zengine)
 # Set output of final executables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
-SET(GCC_COVERAGE_COMPILE_FLAGS "-std=c++0x")
+SET(GCC_COVERAGE_COMPILE_FLAGS "-std=c++0x") 
 add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 
 ###################################################################################
@@ -68,6 +68,10 @@ set(Server_HEADERS
     ../src/server/ZengineServer.h
     ../src/server/network/Network.h
     ../src/server/game/Game.h
+    ../src/server/game/ecs/Entity.h
+    ../src/server/game/ecs/Component.h
+    ../src/server/game/ecs/System.h
+    ../src/server/game/components/GraphicsComponent.h
     )
 file(GLOB Server_HEADERS ../src/server/LuaBridge *.h)
 file(GLOB Server_HEADERS ../src/server/LuaBridge/detail *.h)
@@ -76,6 +80,10 @@ set (Server_SOURCES
     ../src/server/ZengineServer.cpp
     ../src/server/network/Network.cpp
     ../src/server/game/Game.cpp
+    ../src/server/game/ecs/Entity.cpp
+    ../src/server/game/ecs/Component.cpp
+    ../src/server/game/ecs/System.cpp
+    ../src/server/game/components/GraphicsComponent.cpp
     ../src/server/Main.cpp
     )
 
@@ -125,6 +133,9 @@ target_include_directories(ZengineServer PRIVATE
     ../src/server/game
     ../src/server/LuaBridge
     ../src/server/LuaBridge/detail
+    ../src/server/game/ecs
+    ../src/server/game/components
+    ../src/server/game/systems
     )
 target_include_directories(ZengineClient PRIVATE 
     ${OPENGL_INCLUDE_DIR} 

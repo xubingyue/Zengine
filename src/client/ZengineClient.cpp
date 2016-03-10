@@ -40,8 +40,6 @@ void ZengineClient::OnEvent()
         if (message == "quit")
             Running = false;
     }
-    
-    //zengineWindow.clearMessageList();
  
 
     windowMessageList.clear();
@@ -56,12 +54,13 @@ void ZengineClient::Loop()
 
 
 
+
 }
 
 void ZengineClient::Render()
 {
 
-    renderer.Render();
+    renderer.Render(); // <-- pass gamestate
 
 
 

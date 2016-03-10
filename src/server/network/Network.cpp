@@ -28,6 +28,9 @@ void UDP_Network::Initialize()
 
 std::string UDP_Network::getMessage() 
 {
+
+	message.clear();
+
 	if (SDLNet_UDP_Recv(this->socket, this->packet))
 	{
 		printf("UDP Packet incoming\n");
@@ -37,9 +40,10 @@ std::string UDP_Network::getMessage()
 		printf("\tMaxlen:  %d\n", this->packet->maxlen);
 		printf("\tStatus:  %d\n", this->packet->status);
 		printf("\tAddress: %x %x\n", this->packet->address.host, this->packet->address.port);
+
+		message = (char*)this->packet->data;
 	}
 
-	message = (char*)this->packet->data;
 
 	return message;
 }
