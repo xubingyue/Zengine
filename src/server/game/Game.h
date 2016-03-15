@@ -7,6 +7,7 @@
 /*#include <Component.h>*/
 #include <System.h>
 #include <GraphicsComponent.h>
+#include <NpcComponent.h>
 
 //#include <lauxlib.h>
 //#include <lualib.h>

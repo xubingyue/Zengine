@@ -72,6 +72,7 @@ set(Server_HEADERS
     ../src/server/game/ecs/Component.h
     ../src/server/game/ecs/System.h
     ../src/server/game/components/GraphicsComponent.h
+    ../src/server/game/components/NpcComponent.h
     )
 file(GLOB Server_HEADERS ../src/server/LuaBridge *.h)
 file(GLOB Server_HEADERS ../src/server/LuaBridge/detail *.h)
@@ -84,6 +85,7 @@ set (Server_SOURCES
     ../src/server/game/ecs/Component.cpp
     ../src/server/game/ecs/System.cpp
     ../src/server/game/components/GraphicsComponent.cpp
+    ../src/server/game/components/NpcComponent.cpp
     ../src/server/Main.cpp
     )
 

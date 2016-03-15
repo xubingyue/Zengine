@@ -41,7 +41,6 @@ void ZengineServer::Loop()
 
 
     /* Quit if packet contains "quit" */
-    //if (strcmp(message, "quit") == 0)
     if(message == "quit")
         Running = false;
 

@@ -3,13 +3,13 @@
 void GraphicsComponent::setFileName(const std::string& fileName)
 {
 	this->fileName = fileName;
-	printf("This is called from GraphicsComponent.setFileName()\n");
+	printf("File name has been set.\n");
 }
 
 std::string GraphicsComponent::getFileName()
 {
 
-	printf("This is called from GraphicsComponent.getFilename()\n");
+	printf("File name: %s\n", fileName.c_str());
 
 	return fileName;
 }

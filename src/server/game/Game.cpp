@@ -86,6 +86,14 @@ void Game::handleMessage(std::string message)
         GraphicsComponent* testGraphicsComponent = new GraphicsComponent;
         testGraphicsComponent->setFileName("test.png");
         testEntity->addComponent(std::type_index(typeid(GraphicsComponent)), testGraphicsComponent);
+        testGraphicsComponent->getFileName();
+
+        /* Create Npc component */
+        NpcComponent* testNpc = new NpcComponent;
+        testNpc->setPhrase("I'm a test Npc!");
+        testEntity->addComponent(std::type_index(typeid(NpcComponent)), testNpc);
+        testNpc->getPhrase();
+
 
         message.clear();
     }
