@@ -1,15 +1,13 @@
-#include <GraphicsComponent.h>
+#include "GraphicsComponent.h"
+#include <LuaBridge.h>
+#include <iostream>
 
-void GraphicsComponent::setFileName(const std::string& fileName)
-{
-	this->fileName = fileName;
-	printf("File name has been set.\n");
-}
-
-std::string GraphicsComponent::getFileName()
-{
-
-	printf("File name: %s\n", fileName.c_str());
-
-	return fileName;
+GraphicsComponent::GraphicsComponent(luabridge::LuaRef& componentTable) {
+    using namespace luabridge;
+    auto filenameRef = componentTable["filename"];
+    if (filenameRef.isString()) {
+        filename = filenameRef.cast<std::string>();
+    } else {
+        std::cout << "Error, GraphicsComponent.filename is not a string!" << std::endl;
+    }
 }

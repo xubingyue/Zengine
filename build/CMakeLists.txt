@@ -7,7 +7,8 @@ project (Zengine)
 # Set output of final executables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
-SET(GCC_COVERAGE_COMPILE_FLAGS "-std=c++0x") 
+#SET(GCC_COVERAGE_COMPILE_FLAGS "-std=c++0x") 
+SET(GCC_COVERAGE_COMPILE_FLAGS "-std=c++11") 
 add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 
 ###################################################################################
@@ -66,6 +67,8 @@ endif(LUA53_FOUND)
 # List header and source files for Server and Client
 set(Server_HEADERS
     ../src/server/ZengineServer.h
+    ../src/server/utilities/LuaHelperFunctions.h
+   # ../src/server/utilities/EcsHelperFunctions.h
     ../src/server/network/Network.h
     ../src/server/game/Game.h
     ../src/server/game/ecs/Entity.h
@@ -79,6 +82,8 @@ file(GLOB Server_HEADERS ../src/server/LuaBridge/detail *.h)
 
 set (Server_SOURCES
     ../src/server/ZengineServer.cpp
+    ../src/server/utilities/LuaHelperFunctions.cpp
+   # ../src/server/utilities/EcsHelperFunctions.cpp
     ../src/server/network/Network.cpp
     ../src/server/game/Game.cpp
     ../src/server/game/ecs/Entity.cpp
@@ -131,6 +136,7 @@ target_include_directories(ZengineServer PRIVATE
     ${SDL2_NET_INCLUDE_DIR}
     ${LUA53_INCLUDE_DIR}
     ../src/server
+    ../src/server/utilities
     ../src/server/network
     ../src/server/game
     ../src/server/LuaBridge

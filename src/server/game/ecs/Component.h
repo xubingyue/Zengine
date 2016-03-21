@@ -1,7 +1,11 @@
 #pragma once
 
-class Component
-{
-	public:
-		virtual ~Component() {};
+namespace luabridge {
+    class LuaRef;   
+} // forward declaration
+
+class Component {
+public:
+    virtual ~Component() {};
 };
+

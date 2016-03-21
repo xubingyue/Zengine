@@ -1,7 +1,9 @@
-#include <LuaBridge.h>
-#include <iostream>
-#include <lua.h>
+#pragma once
+
 #include <string>
+#include <iostream>
+
+#include <LuaHelperFunctions.h>
 
 #include <Entity.h>
 /*#include <Component.h>*/
@@ -9,10 +11,17 @@
 #include <GraphicsComponent.h>
 #include <NpcComponent.h>
 
-//#include <lauxlib.h>
-//#include <lualib.h>
+extern "C" 
+{
+	#include <lua.h>
+	#include <lauxlib.h>
+	#include <lualib.h>
+}
 
-//using namespace luabridge;
+#include <LuaBridge.h>
+
+
+
 
 class Game 
 {
@@ -26,9 +35,13 @@ class Game
 
 		void Close();
 
+		//bool doOldLuaStuff();
+
 	private:
 
-		luabridge::lua_State* luaState;
+		lua_State* luaState;
+		lua_State* L;
 		std::string message;
 
 };
+

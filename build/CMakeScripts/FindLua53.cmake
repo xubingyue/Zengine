@@ -40,6 +40,32 @@ FIND_PATH(LUA53_INCLUDE_DIR lua.h
   /opt
 )
 
+FIND_PATH(LUA53_INCLUDE_DIR lauxlib.h
+  HINTS
+  $ENV{LUA_DIR}
+  PATH_SUFFIXES include/lua53 include/lua5.3 include/lua include
+  PATHS
+  ~/Library/Frameworks
+  /Library/Frameworks
+  /sw # Fink
+  /opt/local # DarwinPorts
+  /opt/csw # Blastwave
+  /opt
+)
+
+FIND_PATH(LUA53_INCLUDE_DIR lualib.h
+  HINTS
+  $ENV{LUA_DIR}
+  PATH_SUFFIXES include/lua53 include/lua5.3 include/lua include
+  PATHS
+  ~/Library/Frameworks
+  /Library/Frameworks
+  /sw # Fink
+  /opt/local # DarwinPorts
+  /opt/csw # Blastwave
+  /opt
+)
+
 FIND_LIBRARY(LUA53_LIBRARY
   NAMES lua53 lua5.3 lua-5.3 lua
   HINTS

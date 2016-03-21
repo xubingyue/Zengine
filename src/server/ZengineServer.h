@@ -1,4 +1,6 @@
 //ZengineServer.h
+#pragma once
+
 #include <stdio.h>
 #include <string>
 

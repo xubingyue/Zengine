@@ -1,4 +1,4 @@
-
+#pragma once
 
 #include <map>
 #include <string>
@@ -6,24 +6,28 @@
 
 class Component;
 
-class Entity
-{
-	public: 
+class Entity {
+public:
+    ~Entity();
+    void addComponent(std::type_index type, Component* c);
 
-		~Entity();
+    template <typename T>
+    T* get() {
+        auto it = components.find(std::type_index(typeid(T)));
+        if (it != components.end()) {
+            return dynamic_cast<T*>(it->second);
+        }
+        return nullptr;
+    }
 
-		void addComponent(std::type_index type, Component* component);
+    void setType(const std::string& type) {
+        this->type = type;
+    }
 
-		template <typename componentType>
-		componentType* get();
-
-		void setType(const std::string& type);
-
-		std::string getType();
-
-	private:
-
-		std::string type;
-		std::map<std::type_index, Component*> componentMap;
-
+    std::string getType() const {
+        return type;
+    }
+private:
+    std::string type;
+    std::map<std::type_index, Component*> components;
 };
